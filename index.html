@@ -14,7 +14,7 @@
 <link rel="icon" href="img/logo.webp" type="image/webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..800,100&family=Commissioner:wght@400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,500..800,100&family=Commissioner:wght@400..700&family=Allura&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -122,7 +122,7 @@
   .marca strong { font-family: var(--fonte-titulo); font-size: 1.45rem; font-weight: 800; font-style: italic; letter-spacing: -.02em; color: var(--azul); }
   .marca strong b, .rodape-nome b { margin-inline: .06em; color: var(--vermelho); }
   .marca small { font-size: .82rem; }
-  .menu { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0 1.4rem; align-items: center; margin-left: auto; }
+  .menu { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0 clamp(1.6rem, 2.6vw, 2.6rem); align-items: center; margin-left: auto; }
   .menu a { color: var(--tinta); text-decoration: none; padding: .55rem 0; white-space: nowrap; font-weight: 500; font-size: .98rem; }
   .menu a:hover { color: var(--azul); text-decoration: underline; }
   .sacola-botao { position: relative; display: inline-flex; align-items: center; gap: .45rem; flex: none; min-height: 48px; padding: .45rem 1rem; border: 0; border-radius: 12px; background: var(--azul); color: #fff; font: 650 1rem/1 var(--fonte); cursor: pointer; transition: background-color var(--dur-ui) ease; }
@@ -160,52 +160,85 @@
   }
   @media (prefers-reduced-motion: reduce) { .menu-botao span, .menu { transition: none !important; } }
 
-  /* ---------- abertura: carrossel de campanhas ---------- */
+  /* ---------- abertura: cena de vitrine, parede clara com moldura e mesa de madeira; as plantas ficam em pe na mesa ---------- */
   .destaques-secao { padding-block: clamp(.9rem, 2vw, 1.4rem) 0; }
-  .destaques { position: relative; container-type: inline-size; }
-  .destaques-trilho { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0; padding: 0; list-style: none; border-radius: 22px; }
-  .destaques-trilho::-webkit-scrollbar { display: none; }
-  .destaque { scroll-snap-align: start; position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: center; min-height: clamp(360px, 44vw, 460px); background: var(--cor); overflow: hidden; }
-  .destaque-texto { position: relative; z-index: 1; display: grid; justify-items: start; align-content: center; gap: .9rem; padding: clamp(1.8rem, 4vw, 3rem) 1rem clamp(3.4rem, 5vw, 3.6rem) clamp(4.2rem, 7vw, 5.5rem); min-width: 0; }
+  .destaques { position: relative; }
+  .destaques-trilho { display: grid; margin: 0; padding: 0; list-style: none; border-radius: 28px; overflow: hidden; touch-action: pan-y; }
+  .destaque {
+    --mesa: clamp(78px, 9vw, 104px); --alto: clamp(260px, 29vw, 370px);
+    grid-area: 1 / 1; position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(1rem, 3vw, 3rem);
+    min-height: clamp(440px, 42vw, 540px); padding: clamp(2.4rem, 4vw, 3.4rem) clamp(5rem, 7vw, 6.4rem) 0; color: var(--tinta); visibility: hidden;
+    background:
+      repeating-linear-gradient(177deg, rgba(122, 72, 34, .06) 0 2px, transparent 2px 13px) bottom / 100% var(--mesa) no-repeat,
+      linear-gradient(180deg, #ECCDA6 0 3px, #DDB384 3px, #CB9A68 100%) bottom / 100% var(--mesa) no-repeat,
+      linear-gradient(180deg, transparent calc(100% - var(--mesa) - 18px), rgba(110, 72, 40, .08) calc(100% - var(--mesa))) ,
+      var(--parede);
+  }
+  .destaque.ativo { visibility: visible; }
+  /* molduras da parede, como boiserie */
+  .destaque::before, .destaque::after { content: ""; position: absolute; z-index: -1; top: 7%; bottom: calc(var(--mesa) + 7%); border-radius: 3px; box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .8), inset 0 0 0 4px rgba(120, 86, 56, .07), inset 0 0 0 16px transparent, inset 0 0 0 17.5px rgba(255, 255, 255, .7), inset 0 0 0 19px rgba(120, 86, 56, .06); }
+  .destaque::before { left: 3%; width: 42%; }
+  .destaque::after { right: 3%; width: 49%; }
+  .destaque-texto { align-self: center; display: grid; justify-items: start; gap: .9rem; min-width: 0; padding-bottom: calc(var(--mesa) + .5rem); }
   .destaque-texto > * { max-width: 100%; }
-  .destaque-chapeu { color: var(--azul); font-weight: 650; font-size: .98rem; }
-  .destaque h2 { font-size: clamp(2rem, 1.2rem + 2.6vw, 3.4rem); line-height: .98; max-width: 10em; }
-  .destaque-texto > p:not(.destaque-chapeu) { max-width: 27rem; color: var(--tinta-2); font-size: 1.05rem; line-height: 1.5; }
-  .destaque-foto { align-self: stretch; display: grid; place-items: center; padding: 1rem clamp(3.6rem, 6vw, 5rem) 1rem 0; min-width: 0; }
-  /* fotos de produto tem fundo branco: multiply deixa o fundo da cor do banner */
-  .destaque-foto img { display: block; width: 100%; max-width: 560px; height: auto; mix-blend-mode: multiply; }
-  /* o ultimo banner e a propria loja: agua funda com a fachada de verdade */
-  .destaque-escuro { color: #fff; }
-  .destaque-escuro h2 { color: #fff; }
-  .destaque-escuro .destaque-chapeu { color: #A9BCFF; }
-  .destaque-escuro .destaque-texto > p:not(.destaque-chapeu) { color: #D5DDF5; }
-  .destaque-escuro .destaque-foto { padding: 0; }
-  .destaque-escuro .destaque-foto img { max-width: none; height: 100%; object-fit: cover; object-position: 50% 30%; mix-blend-mode: normal; -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%); mask-image: linear-gradient(90deg, transparent, #000 22%); }
-  .destaques .seta { position: absolute; top: 50%; translate: 0 -50%; z-index: 2; box-shadow: 0 6px 18px -8px rgba(15, 30, 74, .5); }
-  .destaques .seta-ant { left: .9rem; }
-  .destaques .seta-prox { right: .9rem; }
-  .destaques .pontos { position: absolute; left: 50%; bottom: .35rem; translate: -50% 0; z-index: 2; }
+  .destaque-chapeu { color: var(--vermelho); font-weight: 650; font-size: .98rem; }
+  .destaque h2 { display: grid; gap: .1em; color: var(--marinho); font-size: clamp(1.5rem, 1rem + 1.4vw, 2.2rem); line-height: 1.08; max-width: 12em; }
+  .cursiva { margin: -.1em 0 -.05em -.04em; color: var(--azul); font: 400 clamp(3rem, 1.6rem + 4vw, 5.2rem)/.95 "Allura", cursive; letter-spacing: 0; white-space: nowrap; font-variation-settings: normal; }
+  .destaque-texto > p:not(.destaque-chapeu) { max-width: 26rem; color: var(--tinta-2); font-size: 1.05rem; line-height: 1.55; }
+  .destaque .btn { margin-top: .3rem; }
+  /* a mesa: tres pecas lado a lado, a do meio maior */
+  .mesa { align-self: end; display: flex; justify-content: center; align-items: flex-end; gap: clamp(.6rem, 2vw, 1.8rem); margin: 0; padding: 0 0 calc(var(--mesa) - 34px); list-style: none; min-width: 0; }
+  .mesa > li { min-width: 0; }
+  .peca { position: relative; display: block; color: inherit; text-decoration: none; }
+  .peca img { display: block; width: auto; height: calc(var(--alto) * .76); max-width: 100%; object-fit: contain; object-position: 50% 100%; mix-blend-mode: multiply; }
+  .mesa > li:nth-child(2) .peca img { height: var(--alto); }
+  .mesa > li:nth-child(3) .peca img { height: calc(var(--alto) * .66); }
+  /* sombra macia onde o vaso encosta na mesa */
+  .peca::before { content: ""; position: absolute; z-index: -1; left: 8%; right: 8%; bottom: -7px; height: 18px; border-radius: 50%; background: radial-gradient(closest-side, rgba(70, 40, 16, .32), transparent); }
+  .peca-preco { position: absolute; left: 50%; top: calc(100% + 9px); translate: -50% 0; padding: .2rem .65rem; border-radius: 999px; background: var(--branco); color: var(--azul-2); font: 700 .92rem/1.3 var(--fonte-titulo); white-space: nowrap; transition: background-color var(--dur-ui) ease, color var(--dur-ui) ease; }
+  @media (hover: hover) and (pointer: fine) { .peca:hover .peca-preco { background: var(--azul-2); color: #fff; } }
+  .peca:focus-visible { outline: none; }
+  .peca:focus-visible .peca-preco { outline: 3px solid var(--azul); outline-offset: 2px; }
+  /* troca: o texto sobe e as plantas brotam na mesa, uma depois da outra */
+  .com-js .destaque-texto > * { opacity: 0; transform: translateY(14px); }
+  .com-js .mesa > li { opacity: 0; transform: translateY(26px) scale(.94); transform-origin: 50% 100%; }
+  .destaque.ativo .destaque-texto > *, .destaque.ativo .mesa > li { opacity: 1; transform: none; transition: opacity .5s var(--ease-out), transform .7s var(--ease-out); }
+  .destaque.ativo .destaque-texto > :nth-child(2) { transition-delay: .05s; }
+  .destaque.ativo .destaque-texto > :nth-child(3) { transition-delay: .1s; }
+  .destaque.ativo .destaque-texto > :nth-child(4) { transition-delay: .15s; }
+  .destaque.ativo .mesa > li:nth-child(1) { transition-delay: .14s; }
+  .destaque.ativo .mesa > li:nth-child(2) { transition-delay: .24s; }
+  .destaque.ativo .mesa > li:nth-child(3) { transition-delay: .34s; }
+  @media (prefers-reduced-motion: reduce) { .com-js .destaque-texto > *, .com-js .mesa > li { transform: none !important; transition: opacity .2s ease !important; transition-delay: 0s !important; } }
+  .destaques .seta { position: absolute; top: 50%; translate: 0 -50%; z-index: 2; box-shadow: 0 6px 18px -10px rgba(70, 40, 16, .5); }
+  .destaques .seta-ant { left: 1rem; }
+  .destaques .seta-prox { right: 1rem; }
+  .destaques .pontos { position: absolute; left: clamp(5rem, 7vw, 6.4rem); bottom: calc(var(--mesa-pontos, 1rem)); translate: -10px 0; z-index: 2; }
   .seta { width: 46px; height: 46px; border: 0; border-radius: 50%; background: var(--branco); color: var(--tinta); display: grid; place-items: center; cursor: pointer; transition: background-color var(--dur-ui) ease, transform .12s var(--ease-out); }
   @media (hover: hover) and (pointer: fine) { .seta:hover { background: var(--ceu); } }
   .seta:active { transform: scale(.94); }
   .seta svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
   .pontos { display: flex; gap: 0; }
-  .ponto { width: 36px; height: 40px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; place-items: center; }
-  .ponto::before { content: ""; width: 10px; height: 10px; border-radius: 999px; background: rgba(18, 35, 58, .25); transition: width var(--dur-ui) var(--ease-out), background-color var(--dur-ui) ease; }
-  .ponto[aria-current="true"]::before { width: 26px; background: var(--tinta); }
-  .no-escuro .ponto::before { background: rgba(255, 255, 255, .4); }
-  .no-escuro .ponto[aria-current="true"]::before { background: #fff; }
+  .ponto { width: 30px; height: 40px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; place-items: center; }
+  .ponto::before { content: ""; width: 10px; height: 10px; border-radius: 999px; background: rgba(255, 255, 255, .75); transition: width var(--dur-ui) var(--ease-out), background-color var(--dur-ui) ease; }
+  .ponto[aria-current="true"]::before { width: 26px; background: var(--azul-2); }
+  @media (max-width: 900px) {
+    .destaque { padding-inline: clamp(3.6rem, 7vw, 4.6rem); }
+    .destaques .pontos { left: clamp(3.6rem, 7vw, 4.6rem); }
+  }
   @media (max-width: 760px) {
-    .destaque { grid-template-columns: minmax(0, 1fr); align-items: start; min-height: 0; }
-    .destaque-foto { order: -1; aspect-ratio: 6 / 5; padding: 1rem 3.4rem .2rem; }
-    .destaque-foto { min-height: 0; overflow: hidden; }
-    .destaque-foto img { width: 100%; height: 100%; max-width: none; object-fit: contain; }
-    .destaque-escuro .destaque-foto img { width: 100%; height: 100%; max-height: none; -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent); mask-image: linear-gradient(180deg, #000 70%, transparent); }
-    .destaque-texto { padding: .4rem var(--margem) 3.4rem; gap: .7rem; }
-    .destaque h2 { font-size: clamp(1.75rem, 1.3rem + 2.4vw, 2.4rem); }
-    .destaques .seta { top: calc(50cqw * 5 / 6); width: 42px; height: 42px; }
-    .destaques .seta-ant { left: .5rem; }
-    .destaques .seta-prox { right: .5rem; }
+    .destaque { --mesa: 74px; --alto: 210px; grid-template-columns: minmax(0, 1fr); min-height: 0; padding: 2rem 1.25rem 0; gap: 1.2rem; }
+    .destaque::before { display: none; }
+    .destaque::after { left: 4%; right: auto; width: 92%; top: 2.5%; bottom: calc(var(--mesa) + 1rem); }
+    .destaque-texto { padding-bottom: 0; gap: .7rem; }
+    .destaque h2 { font-size: clamp(1.45rem, 1.1rem + 1.6vw, 1.8rem); }
+    .cursiva { font-size: clamp(3rem, 2rem + 4vw, 3.8rem); }
+    .destaque-texto > p:not(.destaque-chapeu) { font-size: 1rem; }
+    .mesa { gap: .5rem; }
+    .peca-preco { font-size: .82rem; padding: .15rem .5rem; }
+    .destaques .seta { display: none; }
+    .destaques .pontos { position: static; translate: none; justify-content: center; margin-top: .1rem; }
+    .ponto::before { background: rgba(18, 51, 29, .22); }
   }
 
   /* faixa de fatos logo abaixo do carrossel */
@@ -354,20 +387,32 @@
   .chegar-dados .btn { justify-self: start; font-family: var(--fonte); font-size: 1rem; font-weight: 600; }
   @media (max-width: 760px) { .chegar { grid-template-columns: minmax(0, 1fr); } .chegar-mapa { height: 260px; } }
 
-  /* ---------- rodape ---------- */
-  .rodape { background: var(--marinho); color: #CBD5F0; padding: 1.1rem 0 calc(1.1rem + env(safe-area-inset-bottom)); font-size: .92rem; }
-  .rodape-grade { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem 2.5rem; }
-  .rodape-grade > * { min-width: 0; max-width: 100%; }
+  /* ---------- rodape: a cerca viva em cima e o canteiro de informacoes ---------- */
+  .rodape { position: relative; background: var(--marinho); color: #CFE0CC; padding: clamp(2.6rem, 5vw, 3.6rem) 0 calc(1.2rem + env(safe-area-inset-bottom)); font-size: .95rem; }
+  .rodape::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 34px; background: radial-gradient(circle at 50% 100%, var(--marinho) 70%, transparent 71%) 0 100% / 46px 46px repeat-x, radial-gradient(circle at 50% 100%, #1F5A30 70%, transparent 71%) 23px 100% / 46px 34px repeat-x; }
+  #chegar { padding-bottom: calc(clamp(3rem, 6vw, 5rem) + 34px); }
+  .rodape-grade { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 2rem clamp(1.5rem, 4vw, 3.5rem); }
+  .rodape-grade > * { min-width: 0; }
+  .rodape-sobre { display: grid; gap: 1rem; align-content: start; }
+  .rodape-sobre > p:not(.redes) { max-width: 22rem; line-height: 1.6; }
   .rodape-marca { display: inline-flex; align-items: center; gap: .8rem; color: #fff; text-decoration: none; }
-  .rodape-marca { flex-wrap: wrap; gap: .2rem .8rem; }
-  .rodape-nome { font-family: var(--fonte-titulo); font-size: 1.25rem; font-weight: 800; font-style: italic; }
-  .rodape-nome b { color: #FF8A8E; }
-  .rodape a { color: #fff; }
-  .redes { display: flex; gap: .4rem; }
-  .redes a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, .08); transition: background-color var(--dur-ui) ease; }
+  .rodape-marca img { width: 56px; height: 56px; border-radius: 50%; background: #fff; }
+  .rodape-marca small { display: block; color: #F0A43A; font-size: .9rem; font-weight: 600; }
+  .rodape-nome { display: block; font-family: var(--fonte-titulo); font-size: 1.5rem; line-height: 1.1; }
+  .rodape-coluna h2 { margin-bottom: .9rem; color: #fff; font: 650 1.12rem/1.2 var(--fonte-titulo); letter-spacing: -.01em; }
+  .rodape-coluna ul { display: grid; gap: .6rem; margin: 0; padding: 0; list-style: none; line-height: 1.45; }
+  .rodape-coluna a, .rodape-coluna button { padding: 0; border: 0; background: none; color: #E6EFE2; font: inherit; text-align: left; text-decoration: none; cursor: pointer; }
+  @media (hover: hover) and (pointer: fine) { .rodape-coluna a:hover, .rodape-coluna button:hover, .rodape-base a:hover { color: #F0A43A; text-decoration: underline; text-underline-offset: 3px; } }
+  .pagamentos { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1.1rem; }
+  .pagamentos span { padding: .25rem .7rem; border-radius: 999px; background: rgba(255, 255, 255, .08); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); color: #fff; font-size: .82rem; font-weight: 600; }
+  .rodape-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem 1.5rem; margin-top: clamp(2rem, 4vw, 2.8rem); padding-top: 1.1rem; border-top: 1px solid rgba(255, 255, 255, .12); font-size: .85rem; color: #A9C2A6; }
+  .rodape-base a { color: #E6EFE2; }
+  .redes { display: flex; gap: .45rem; }
+  .redes a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, .08); color: #fff; transition: background-color var(--dur-ui) ease; }
   .redes svg { width: 22px; height: 22px; }
-  @media (hover: hover) and (pointer: fine) { .redes a:hover { background: var(--vermelho); color: #fff; } }
-  @media (max-width: 700px) { .rodape-grade { flex-direction: column; align-items: flex-start; gap: .6rem; } }
+  @media (hover: hover) and (pointer: fine) { .redes a:hover { background: var(--vermelho); } }
+  @media (max-width: 900px) { .rodape-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); } .rodape-sobre { grid-column: 1 / -1; } }
+  @media (max-width: 480px) { .rodape-grade { gap: 1.8rem 1.2rem; } .rodape-coluna:last-child { grid-column: 1 / -1; } }
 
   /* ---------- pagina do produto: abre por cima da vitrine e tem endereco proprio (#produto-id) ---------- */
   .ficha {
@@ -380,7 +425,17 @@
   .ficha::backdrop { background: rgba(15, 30, 74, .55); opacity: 0; transition: opacity .28s ease; }
   .ficha.aberta::backdrop { opacity: 1; }
   .ficha > .fechar { position: absolute; top: .8rem; right: .8rem; z-index: 2; }
-  .ficha-foto { position: relative; align-self: start; aspect-ratio: 1; border-right: 1px solid var(--linha); }
+  /* galeria: a coluna da foto vai ate o fim da pagina; foto e miniaturas ficam paradas enquanto o texto rola */
+  .ficha-galeria { align-self: stretch; min-width: 0; background: var(--ceu); border-right: 1px solid var(--linha); }
+  .ficha-galeria-dentro { position: sticky; top: 0; display: grid; gap: .8rem; padding-bottom: 1.2rem; }
+  .ficha-foto { position: relative; aspect-ratio: 1; }
+  .miniaturas { display: flex; flex-wrap: wrap; gap: .6rem; padding-inline: clamp(1rem, 2.4vw, 1.6rem); }
+  .miniatura { width: 76px; aspect-ratio: 1; padding: 0; border: 0; border-radius: 14px; background: var(--branco); box-shadow: inset 0 0 0 1.5px var(--linha); cursor: pointer; overflow: hidden; transition: box-shadow var(--dur-ui) var(--ease-out); }
+  .miniatura img { display: block; width: 100%; height: 100%; object-fit: contain; padding: 7%; mix-blend-mode: multiply; }
+  @media (hover: hover) and (pointer: fine) { .miniatura:hover { box-shadow: inset 0 0 0 1.5px var(--linha-forte); } }
+  .miniatura[aria-pressed="true"] { box-shadow: inset 0 0 0 2.5px var(--azul-2); }
+  .miniatura:focus-visible { outline: 3px solid var(--azul); outline-offset: 2px; }
+  .ficha-nota { min-height: 1.4em; padding-inline: clamp(1rem, 2.4vw, 1.6rem); color: var(--tinta-2); font-size: .9rem; }
   .ficha-foto img { display: block; width: 100%; height: 100%; object-fit: contain; }
   .ficha-info { display: flex; flex-direction: column; gap: .85rem; min-width: 0; padding: clamp(1.4rem, 3vw, 2.4rem); }
   .ficha-info h2 { padding-right: 2.6rem; font-size: clamp(1.45rem, 1.2rem + .9vw, 1.9rem); line-height: 1.12; }
@@ -406,7 +461,10 @@
   @media (max-width: 760px) {
     .ficha { width: 100%; max-height: 94dvh; margin: auto 0 0; border-radius: 22px 22px 0 0; transform: translateY(40px); }
     .ficha[open] { grid-template-columns: minmax(0, 1fr); }
-    .ficha-foto { aspect-ratio: 4 / 3; border-right: 0; border-bottom: 1px solid var(--linha); }
+    .ficha-galeria { border-right: 0; border-bottom: 1px solid var(--linha); }
+    .ficha-galeria-dentro { position: static; padding-bottom: .9rem; gap: .6rem; }
+    .ficha-foto { aspect-ratio: 4 / 3; }
+    .miniatura { width: 62px; border-radius: 12px; }
   }
   @media (prefers-reduced-motion: reduce) { .ficha { transform: none; transition: opacity .2s ease; } }
   html:has(dialog[open]) { overflow: hidden; }
@@ -535,42 +593,11 @@
   .marca img { width: 54px; height: 54px; border-radius: 50%; }
   .marca strong, .rodape-nome { font-style: normal; font-weight: 700; font-variation-settings: "SOFT" 100; }
   .marca strong { color: var(--azul); letter-spacing: -.01em; }
-  .rodape-nome { color: #fff; }
   .btn { border-radius: 999px; }
 
   /* varal: os guarda-chuvas coloridos do teto da estufa, em cima do banner */
   .destaques-secao { position: relative; padding-top: 0; }
   .varal { display: block; width: 100%; height: clamp(46px, 6vw, 64px); margin-bottom: clamp(-30px, -2.6vw, -20px); position: relative; z-index: 3; pointer-events: none; }
-
-  /* banner: foto inteira, o texto numa plaquinha branca com o furo do barbante */
-  .destaques-trilho { border-radius: 28px; }
-  .destaque { grid-template-columns: minmax(0, 1fr); min-height: clamp(400px, 46vw, 520px); align-items: end; }
-  .destaque-foto { position: absolute; inset: 0; padding: 0; display: block; }
-  .destaque-foto img { width: 100%; height: 100%; max-width: none; object-fit: cover; mix-blend-mode: normal; }
-  .destaque-produtos .destaque-foto img { object-fit: contain; object-position: 88% 60%; padding: 1.5rem 1.5rem 1.5rem 42%; mix-blend-mode: multiply; }
-  .destaque-texto {
-    position: relative; margin: 0 0 clamp(3rem, 5vw, 3.6rem) clamp(1.2rem, 5vw, 4.5rem); max-width: min(30rem, calc(100% - 2.4rem));
-    padding: 2.3rem 1.7rem 1.6rem; border-radius: 20px 20px 20px 6px; background: var(--branco); box-shadow: 0 22px 40px -26px rgba(18, 51, 29, .55);
-  }
-  .destaque-texto::before { content: ""; position: absolute; left: 1.7rem; top: .95rem; width: 12px; height: 12px; border-radius: 50%; background: var(--ceu); box-shadow: inset 0 0 0 2px var(--linha-forte); }
-  .destaque-chapeu { padding-left: 1.4rem; color: var(--vermelho); }
-  .destaque h2 { font-size: clamp(1.9rem, 1.2rem + 2.2vw, 3rem); line-height: 1; }
-  .destaque-escuro .destaque-texto { background: var(--branco); }
-  .destaque-escuro h2 { color: var(--tinta); }
-  .destaque-escuro .destaque-chapeu { color: var(--vermelho); }
-  .destaque-escuro .destaque-texto > p:not(.destaque-chapeu) { color: var(--tinta-2); }
-  .destaque-escuro .destaque-foto img { -webkit-mask-image: none; mask-image: none; object-position: 50% 40%; }
-  .destaques .pontos { bottom: .4rem; }
-  .ponto::before { background: rgba(255, 255, 255, .7); box-shadow: 0 0 0 1px rgba(18, 51, 29, .25); }
-  .ponto[aria-current="true"]::before { background: var(--vermelho); box-shadow: none; }
-  .no-escuro .ponto[aria-current="true"]::before { background: var(--vermelho); }
-  @media (max-width: 760px) {
-    .destaque { min-height: 0; align-items: start; }
-    .destaque-foto { position: relative; inset: auto; aspect-ratio: 4 / 3; padding: 0; }
-    .destaque-produtos .destaque-foto img { padding: 1rem; object-position: 50% 50%; }
-    .destaque-texto { margin: -2.4rem var(--margem) 3.2rem; max-width: none; padding: 2.1rem 1.2rem 1.3rem; }
-    .destaques .seta { top: calc(50cqw * 3 / 4); }
-  }
 
   /* fatos: plaquinhas de muda, cada uma com a estaca de madeira */
   .fatos { gap: 1rem 1rem; padding: 1.6rem 0 1.4rem; }
@@ -579,8 +606,10 @@
   .fato svg { stroke: var(--azul); }
 
   /* categorias: cada uma numa folha */
-  .categorias { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  .categoria span:first-child { border-radius: 72% 0 72% 0 / 72% 0 72% 0; background: #fff; }
+  .categorias { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1.4rem clamp(1.4rem, 3.2vw, 3rem); }
+  .categoria { gap: .9rem; }
+  @media (max-width: 860px) { .categorias { gap: 1.5rem; } .categoria { flex-basis: 104px; } }
+  .categoria span:first-child { border-radius: 72% 0 72% 0 / 72% 0 72% 0; background: #fff; box-shadow: 0 0 0 1.5px #CFDFC9; }
   .categoria img { mix-blend-mode: multiply; padding: 12%; }
   .categoria-todos span:first-child { background: var(--azul-claro); }
   .categoria[aria-pressed="true"] span:first-child { box-shadow: 0 0 0 4px var(--azul); }
@@ -591,7 +620,12 @@
   .produto { border-radius: 20px; }
   .produto-foto { margin: 8px 8px 0; border-radius: 999px 999px 14px 14px; border-bottom: 0; background: var(--ceu); overflow: hidden; }
   .produto-foto img { mix-blend-mode: multiply; padding: 6%; }
-  .selo { left: 50%; top: .9rem; translate: -50% 0; border-radius: 6px; background: var(--vermelho); white-space: nowrap; }
+  /* o selo fica no canto do cartao, fora da curva do arco */
+  .produto { position: relative; box-shadow: 0 0 0 1.5px #CFDFC9; transition: box-shadow var(--dur-ui) var(--ease-out); }
+  .produto .produto-foto { position: static; }
+  .produto .selo { left: .7rem; top: .7rem; z-index: 1; border-radius: 6px 6px 6px 2px; white-space: nowrap; }
+  .ficha-foto .selo { left: 1rem; top: 1rem; border-radius: 6px 6px 6px 2px; }
+  @media (hover: hover) and (pointer: fine) { .produto:hover { box-shadow: 0 0 0 2px var(--azul-2); } }
   .produto-marca { color: var(--vermelho); }
   .produto-preco { font-family: var(--fonte-titulo); font-size: 1.35rem; font-weight: 700; color: var(--azul); line-height: 1.1; }
   .produto-preco small { font-family: var(--fonte); }
@@ -600,6 +634,11 @@
   .cuidados svg { width: 16px; height: 16px; flex: none; fill: none; stroke: var(--azul); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .cuidados .pet svg { stroke: var(--vermelho); }
   @media (max-width: 560px) { .cuidados { font-size: .8rem; } }
+  /* cartoes alinhados: cuidados um por linha, preco e botao sempre no pe */
+  .produto-info { gap: .4rem; }
+  .produto .cuidados { flex-direction: column; flex-wrap: nowrap; gap: .3rem; min-height: 0; margin-top: .15rem; }
+  .produto-preco { margin-top: auto; padding-top: .55rem; }
+  .produto .btn { margin-top: .5rem; }
 
   /* planta certa: o canteiro com a terra em cima, no lugar da fita */
   .presente { background: var(--azul); }
@@ -669,41 +708,41 @@
     <svg class="varal" id="varal" aria-hidden="true" preserveAspectRatio="xMidYMin slice"></svg>
     <div class="destaques" id="destaques-caixa" aria-roledescription="carrossel" aria-label="Destaques da loja">
       <ul class="destaques-trilho" id="destaques">
-        <li class="destaque destaque-escuro" style="--cor:#DFEBD8" aria-roledescription="destaque" aria-label="1 de 4">
-          <div class="destaque-foto"><img src="img/corredor.webp" width="1080" height="420" alt="Corredor da estufa com milhares de vasos de crisântemos brancos, amarelos e rosa"></div>
+        <li class="destaque" style="--parede:#FBF1E8" aria-roledescription="destaque" aria-label="1 de 4">
           <div class="destaque-texto">
             <p class="destaque-chapeu">A 7 minutos de Ribeirão Preto</p>
-            <h2>O shopping das plantas, agora também pelo site</h2>
-            <p>Escolha as plantas pelo celular e retire na loja, ou receba em casa em Cravinhos e Ribeirão Preto.</p>
+            <h2><span class="cursiva">Pronta Flora</span> o shopping das plantas, agora também pelo site</h2>
+            <p>Escolha pelo celular e retire na loja, ou receba em casa em Cravinhos e Ribeirão Preto.</p>
             <a class="btn" href="#produtos">Ver as plantas</a>
           </div>
+          <ul class="mesa" data-itens="anturio costela lirio-paz" aria-label="Produtos em destaque"></ul>
         </li>
-        <li class="destaque destaque-produtos" style="--cor:#EAF2E4" aria-roledescription="destaque" aria-label="2 de 4">
-          <div class="destaque-foto"><img src="img/banner-orquideas.webp" width="1200" height="900" alt="Orquídeas Phalaenopsis branca, cascata e mini, ao lado de um antúrio vermelho" loading="lazy"></div>
+        <li class="destaque" style="--parede:#F9ECEC" aria-roledescription="destaque" aria-label="2 de 4">
           <div class="destaque-texto">
             <p class="destaque-chapeu">Flores de vaso</p>
-            <h2>Orquídeas para presentear</h2>
-            <p>Phalaenopsis branca, cascata e mini. Se for presente, embrulhamos com papel e laço.</p>
+            <h2><span class="cursiva">Orquídeas</span> para presentear</h2>
+            <p>Branca, cascata e mini. Se for presente, embrulhamos com papel e laço.</p>
             <button class="btn" type="button" data-ir="flores">Ver as flores</button>
           </div>
+          <ul class="mesa" data-itens="orquidea-mini orquidea-cascata orquidea-branca" aria-label="Produtos em destaque"></ul>
         </li>
-        <li class="destaque destaque-produtos" style="--cor:#F4EDE6" aria-roledescription="destaque" aria-label="3 de 4">
-          <div class="destaque-foto"><img src="img/banner-vasos.webp" width="1200" height="900" alt="Vasos de cerâmica nas cores marfim, musgo, terracota, conhaque e branco" loading="lazy"></div>
+        <li class="destaque" style="--parede:#F4EFE6" aria-roledescription="destaque" aria-label="3 de 4">
           <div class="destaque-texto">
             <p class="destaque-chapeu">Vasos e cachepôs</p>
-            <h2>Cerâmica em cinco cores</h2>
-            <p>Vasos esmaltados, cachepôs e vasos de plástico, com o kit de drenagem para plantar certo.</p>
+            <h2><span class="cursiva">Vasos</span> em cerâmica, cachepô e plástico</h2>
+            <p>Vasos esmaltados em cinco cores, cachepôs e vasos leves, com o kit de drenagem para plantar certo.</p>
             <button class="btn" type="button" data-ir="vasos">Ver os vasos</button>
           </div>
+          <ul class="mesa" data-itens="aquarela vaso-bretagne cachepo:1" aria-label="Produtos em destaque"></ul>
         </li>
-        <li class="destaque destaque-produtos" style="--cor:#E4EEDC" aria-roledescription="destaque" aria-label="4 de 4">
-          <div class="destaque-foto"><img src="img/banner-folhagens.webp" width="1200" height="900" alt="Zamioculca, espada-de-são-jorge, jiboia e costela-de-adão" loading="lazy"></div>
+        <li class="destaque" style="--parede:#EEF4EA" aria-roledescription="destaque" aria-label="4 de 4">
           <div class="destaque-texto">
             <p class="destaque-chapeu">Planta certa</p>
-            <h2>Qual planta vai bem no seu canto?</h2>
+            <h2><span class="cursiva">Seu canto</span> tem a planta certa</h2>
             <p>Diga quanta luz chega no lugar e se tem cachorro ou gato em casa. Mostramos as opções.</p>
             <a class="btn" href="#planta">Achar a planta certa</a>
           </div>
+          <ul class="mesa" data-itens="zamioculca espada jiboia" aria-label="Produtos em destaque"></ul>
         </li>
       </ul>
       <button class="seta seta-ant" type="button" id="destaque-ant" aria-label="Destaque anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
@@ -791,15 +830,53 @@
 </main>
 
 <footer class="rodape">
-  <div class="envoltorio rodape-grade">
-    <a class="rodape-marca" href="#" translate="no" aria-label="Pronta Flora Garden Brasil, voltar ao início">
-      <span class="rodape-nome">Pronta Flora</span>
-      <span>Garden Brasil, o shopping das plantas em Cravinhos</span>
-    </a>
-    <p class="redes">
-      <a href="https://www.instagram.com/prontaflora" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a>
-      <a href="https://www.facebook.com/prontaflora" target="_blank" rel="noopener" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a>
-    </p>
+  <div class="envoltorio">
+    <div class="rodape-grade">
+      <div class="rodape-sobre">
+        <a class="rodape-marca" href="#" translate="no" aria-label="Pronta Flora Garden Brasil, voltar ao início">
+          <img src="img/logo.webp" width="160" height="160" alt="" loading="lazy">
+          <span><span class="rodape-nome">Pronta Flora</span><small>Garden Brasil</small></span>
+        </a>
+        <p>O shopping das plantas em Cravinhos, a 7 minutos de Ribeirão Preto. Flores, folhagens, vasos e tudo para o jardim.</p>
+        <p class="redes">
+          <a href="https://www.instagram.com/prontaflora" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a>
+          <a href="https://www.facebook.com/prontaflora" target="_blank" rel="noopener" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a>
+          <a href="https://wa.me/5516981643796" target="_blank" rel="noopener" aria-label="WhatsApp"><svg aria-hidden="true"><use href="#i-zap"/></svg></a>
+        </p>
+      </div>
+      <nav class="rodape-coluna" aria-label="Categorias">
+        <h2>Produtos</h2>
+        <ul>
+          <li><button type="button" data-ir="flores">Flores de vaso</button></li>
+          <li><button type="button" data-ir="folhagens">Folhagens e suculentas</button></li>
+          <li><button type="button" data-ir="vasos">Vasos e cachepôs</button></li>
+          <li><button type="button" data-ir="terra">Terra e adubo</button></li>
+          <li><button type="button" data-ir="ferramentas">Ferramentas</button></li>
+        </ul>
+      </nav>
+      <nav class="rodape-coluna" aria-label="Rodapé">
+        <h2>A loja</h2>
+        <ul>
+          <li><a href="#planta">Planta certa</a></li>
+          <li><a href="#loja">Sobre a Pronta Flora</a></li>
+          <li><a href="#chegar">Como chegar</a></li>
+          <li><a href="https://wa.me/5516981643796" target="_blank" rel="noopener">Árvores e paisagismo</a></li>
+        </ul>
+      </nav>
+      <div class="rodape-coluna">
+        <h2>Atendimento</h2>
+        <ul>
+          <li>Rua Manoel Gomes dos Santos, 3281, Cravinhos (SP)</li>
+          <li>Aberto todos os dias<br>Domingo das 9h às 17h</li>
+          <li><a href="tel:+551639512026">(16) 3951-2026</a></li>
+        </ul>
+        <p class="pagamentos" aria-label="Formas de pagamento"><span>Pix</span><span>Cartão</span><span>Dinheiro na retirada</span></p>
+      </div>
+    </div>
+    <div class="rodape-base">
+      <p>© 2026 Interflor Comércio de Plantas Ltda · CNPJ 96.617.261/0001-24</p>
+      <a href="#">Voltar ao topo</a>
+    </div>
   </div>
 </footer>
 
@@ -939,7 +1016,8 @@ const LUZ_NOME = { sol: "Sol direto", meia: "Meia-sombra", sombra: "Sombra" };
 const textoLuz = (p) => p.luz.length === 3 ? "Sol ou sombra" : p.luz.map((l, i) => i ? LUZ_NOME[l].toLowerCase() : LUZ_NOME[l]).join(" ou ");
 const cuidados = (p, longo = false) => `<ul class="cuidados"><li><svg aria-hidden="true"><use href="#i-${p.luz[0]}"/></svg>${textoLuz(p)}</li><li><svg aria-hidden="true"><use href="#i-gota"/></svg>${esc(p.rega)}</li>${p.pet ? `<li class="pet"><svg aria-hidden="true"><use href="#i-pata"/></svg>Não faz mal a pets</li>` : longo ? `<li><svg aria-hidden="true"><use href="#i-pata"/></svg>Longe de cães e gatos</li>` : ""}</ul>`;
 const sobre = (p, longo) => p.luz ? cuidados(p, longo) : `<p class="${longo ? "ficha-desc" : "produto-desc"}">${esc(p.desc)}</p>`;
-const precoCartao = (p) => { const ps = p.tams ? p.tams.map(([, preco]) => preco) : [p.preco], min = Math.min(...ps); return min < Math.max(...ps) ? `<small>a partir de</small> ${reais(min)}` : reais(min); };
+/* o cartao mostra so o valor: com tamanhos, o do menor */
+const precoCartao = (p) => reais(precoDe(p));
 const iconeTodos = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h6v6H4zM14 5h6v6h-6zM4 15h6v6H4zM14 15h6v6h-6z"/></svg>`;
 $("#categorias").innerHTML = [["todos", "Todos os produtos"], ...CATEGORIAS].map(([id, nome, f]) => `<button class="categoria${f ? "" : " categoria-todos"}" type="button" data-cat="${id}" aria-pressed="${id === "todos"}"><span>${f ? `<img src="${fotoP(f)}" alt="" loading="lazy">` : iconeTodos}</span><span>${nome}</span></button>`).join("");
 
@@ -984,7 +1062,14 @@ function filtrar(cat) {
   document.querySelectorAll(".prateleira").forEach((li) => li.classList.toggle("some", cat !== "todos" && li.dataset.cat !== cat));
   $("#vitrine").classList.toggle("filtrada", cat !== "todos");
   setas();
-  piscar($("#vitrine"));
+  brotar();
+}
+/* troca de categoria: os cartoes brotam de baixo, um depois do outro, como mudas saindo da terra */
+function brotar() {
+  if (reduzir.matches) return;
+  [...document.querySelectorAll(".prateleira:not(.some) .produto")].slice(0, 12).forEach((el, i) => el.animate(
+    [{ opacity: 0, transform: "translateY(22px) scale(.96)" }, { opacity: 1, transform: "none" }],
+    { duration: 480, delay: i * 45, easing: "cubic-bezier(0.23, 1, 0.32, 1)", fill: "backwards" }));
 }
 const rolar = (el, block = "start") => el.scrollIntoView({ behavior: reduzir.matches ? "auto" : "smooth", block });
 $("#categorias").addEventListener("click", (e) => { const b = e.target.closest("[data-cat]"); if (b) filtrar(b.dataset.cat); });
@@ -1038,7 +1123,11 @@ function desenharFicha() {
   const p = fichaP, va = p.vars[fichaK];
   ficha.innerHTML = `
     <button class="fechar" type="button" data-fechar-ficha aria-label="Fechar"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
-    <div class="ficha-foto"><img id="ficha-img" src="${fotoP(va.f)}" width="600" height="600" alt="">${p.selo ? `<span class="selo">${p.selo}</span>` : ""}</div>
+    <div class="ficha-galeria"><div class="ficha-galeria-dentro">
+      <div class="ficha-foto"><img id="ficha-img" src="${fotoP(va.f)}" width="600" height="600" alt="">${p.selo ? `<span class="selo">${p.selo}</span>` : ""}</div>
+      <div class="miniaturas" id="miniaturas" role="group" aria-label="Fotos do produto"></div>
+      <p class="ficha-nota" id="ficha-nota"></p>
+    </div></div>
     <div class="ficha-info">
       <p class="produto-marca">${esc(p.marca)}</p>
       <h2 id="ficha-nome">${esc(p.nome)}</h2>
@@ -1056,10 +1145,24 @@ function desenharFicha() {
     </div>`;
   mostrarVar();
 }
+/* fotos da galeria: a planta tambem aparece no vaso e no cachepo; o vaso aparece com uma planta */
+const COM_VASO = new Set(["orq-branca-97e88d", "orq-cascata-90214d", "orq-mini-26d7b5", "anturio-390aa2", "lirio-paz-31fe2d", "zamioculca-0d616c", "espada-0906f9", "jiboia-verde-52b88d", "costela-ccdacc"]);
+const COM_PLANTA = new Set(["vaso-marfim-92a10c", "vaso-branco-bcb7b3", "vaso-musgo-6ff6a5", "vaso-terracota-aa5af7", "vaso-cognac-93893f", "cachepo-amarelo-0f7ac3", "cachepo-preto-bd4705", "aquarela-rosa-8ecad3", "aquarela-amarelo-af1010", "aquarela-azul-8666a7", "aquarela-lilas-5575df", "aquarela-verde-1d6b7f"]);
+const fotosDe = (va) => COM_VASO.has(va.f) ? [[va.f, "Foto do produto", ""], [va.f + "-vaso", "No vaso de cerâmica Bretagne", "O vaso Bretagne é vendido à parte."], [va.f + "-cachepo", "No cachepô", "O cachepô é vendido à parte."]]
+  : COM_PLANTA.has(va.f) ? [[va.f, "Foto do produto", ""], [va.f + "-planta", "Com uma planta", "A planta é vendida à parte."]] : [[va.f, "Foto do produto", ""]];
+function mostrarFoto(k) {
+  const fotos = fotosDe(fichaP.vars[fichaK]), [f, , nota] = fotos[k];
+  $("#ficha-img").src = fotoP(f);
+  $("#ficha-nota").textContent = nota;
+  document.querySelectorAll(".miniatura").forEach((b, i) => b.setAttribute("aria-pressed", String(i === k)));
+}
 /* trocar a cor troca a foto; trocar o tamanho troca o preco */
 function mostrarVar() {
   const p = fichaP, va = p.vars[fichaK], img = $("#ficha-img"), b = $("#ficha-add");
   img.src = fotoP(va.f); img.alt = `${p.nome}${va.n ? `, ${p.rotulo.toLowerCase()} ${va.n}` : ""}`;
+  const fotos = fotosDe(va);
+  $("#miniaturas").innerHTML = fotos.length < 2 ? "" : fotos.map(([f, rotulo], i) => `<button class="miniatura" type="button" data-foto="${i}" aria-pressed="${i === 0}" aria-label="${rotulo}"><img src="${fotoP(f)}" width="600" height="600" alt="" loading="lazy"></button>`).join("");
+  $("#ficha-nota").textContent = "";
   $("#ficha-preco").textContent = reais(precoDe(p, fichaT));
   const nome = $("#ficha-var-nome"); if (nome) nome.textContent = va.n;
   $("#ficha-status").textContent = "";
@@ -1095,7 +1198,9 @@ function fecharFicha(voltar = true) {
 ficha.addEventListener("cancel", (e) => { e.preventDefault(); fecharFicha(); });
 ficha.addEventListener("click", (e) => {
   if (e.target === ficha || e.target.closest("[data-fechar-ficha]")) { fecharFicha(); return; }
-  if (e.target.closest("[data-ver-sacola]")) { fecharFicha(); abrirSacola(); }
+  if (e.target.closest("[data-ver-sacola]")) { fecharFicha(); abrirSacola(); return; }
+  const mini = e.target.closest("[data-foto]");
+  if (mini) { mostrarFoto(+mini.dataset.foto); piscar($("#ficha-img")); }
 });
 addEventListener("popstate", () => {
   const m = location.hash.match(/^#produto-(.+)$/);
@@ -1481,39 +1586,43 @@ desenharLista();
   varal.innerHTML = s;
 })();
 
-/* ---------- destaques: arrasta, setas e pontos; passam sozinhos ate a pessoa mexer ---------- */
+/* ---------- destaques: trocam no lugar (setas, pontos e arrastar); passam sozinhos ate a pessoa mexer ---------- */
 (() => {
   const trilho = $("#destaques"), slides = [...trilho.children], pontos = $("#pontos"), caixa = $("#destaques-caixa");
+  /* cada estufa mostra tres produtos da vitrine, com a foto e o preco do cadastro */
+  trilho.querySelectorAll("[data-itens]").forEach((ul) => {
+    ul.innerHTML = ul.dataset.itens.split(" ").map((item) => {
+      const [id, k] = item.split(":"), p = porId(id), va = p.vars[k ? +k : varInicial(p)], preco = reais(precoDe(p));
+      return `<li><a class="peca" href="#produto-${p.id}" data-abrir="${p.id}" aria-label="${esc(p.nome)}, ${preco}"><img src="${fotoP(va.f + "-recorte")}" alt=""><span class="peca-preco" aria-hidden="true">${preco}</span></a></li>`;
+    }).join("");
+  });
   pontos.innerHTML = slides.map((_, k) => `<button class="ponto" type="button" aria-label="Destaque ${k + 1}"></button>`).join("");
   const botoes = [...pontos.children];
-  let atual = 0, timer = null, espera;
-  const pintar = () => {
-    botoes.forEach((b, k) => b.setAttribute("aria-current", String(k === atual)));
-    slides.forEach((sl, k) => { sl.inert = k !== atual; });
-    caixa.classList.toggle("no-escuro", slides[atual].classList.contains("destaque-escuro"));
-  };
-  const ir = (k, suave = true) => {
+  let atual = 0, timer = null;
+  const ir = (k) => {
     atual = (k + slides.length) % slides.length;
-    pintar();
-    trilho.scrollTo({ left: atual * trilho.clientWidth, behavior: suave && !reduzir.matches ? "smooth" : "auto" });
+    slides.forEach((sl, i) => { sl.classList.toggle("ativo", i === atual); sl.inert = i !== atual; });
+    botoes.forEach((b, i) => b.setAttribute("aria-current", String(i === atual)));
   };
-  const marcar = () => {
-    /* com o painel escondido a largura e zero: fica no destaque atual */
-    if (trilho.clientWidth) atual = Math.min(slides.length - 1, Math.max(0, Math.round(trilho.scrollLeft / trilho.clientWidth)));
-    pintar();
-  };
-  trilho.addEventListener("scroll", () => { clearTimeout(espera); espera = setTimeout(marcar, 120); }, { passive: true });
   const pausar = () => { clearInterval(timer); timer = null; };
   const tocar = () => { if (!reduzir.matches && !timer) timer = setInterval(() => ir(atual + 1), 6500); };
   botoes.forEach((b, k) => b.addEventListener("click", () => { pausar(); ir(k); }));
   $("#destaque-ant").addEventListener("click", () => { pausar(); ir(atual - 1); });
   $("#destaque-prox").addEventListener("click", () => { pausar(); ir(atual + 1); });
-  ["pointerdown", "wheel", "touchstart"].forEach((ev) => trilho.addEventListener(ev, pausar, { passive: true }));
+  /* arrastar para o lado troca o destaque; se arrastou, o clique nao abre o produto */
+  let x0 = null, arrastou = false;
+  trilho.addEventListener("pointerdown", (e) => { x0 = e.clientX; arrastou = false; pausar(); });
+  trilho.addEventListener("pointerup", (e) => {
+    if (x0 === null) return;
+    const dx = e.clientX - x0; x0 = null;
+    if (Math.abs(dx) > 50) { arrastou = true; ir(atual + (dx < 0 ? 1 : -1)); }
+  });
+  trilho.addEventListener("pointercancel", () => { x0 = null; });
+  trilho.addEventListener("click", (e) => { if (arrastou) { e.preventDefault(); e.stopPropagation(); arrastou = false; } }, true);
   caixa.addEventListener("mouseenter", pausar);
   caixa.addEventListener("focusin", pausar);
   document.addEventListener("visibilitychange", () => { if (document.hidden) pausar(); });
-  addEventListener("resize", () => ir(atual, false));
-  marcar(); tocar();
+  ir(0); tocar();
 })();
 
 /* ---------- botao do canto: aparece depois da abertura e sai no rodape ---------- */
