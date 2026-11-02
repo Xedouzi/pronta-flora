@@ -1111,6 +1111,15 @@ setas();
 
 /* ---------- pagina do produto ---------- */
 const ficha = $("#ficha");
+/* janela aberta com mouse ou dedo: ao fechar, o foco volta ao link sem a moldura de selecao;
+   quem navega pelo teclado (Tab/Enter) continua vendo onde esta */
+let viaPonteiro = false;
+document.addEventListener("pointerdown", () => { viaPonteiro = true; }, true);
+document.addEventListener("keydown", (e) => { if (["Tab", "Enter", " "].includes(e.key)) viaPonteiro = false; }, true);
+const semMoldura = (dlg) => dlg.addEventListener("close", () => {
+  if (dlg.dataset.ponteiro === "true") requestAnimationFrame(() => document.activeElement?.blur());
+});
+semMoldura(ficha);
 let fichaP = null, fichaK = 0, fichaT = 0, fichaFecha;
 function escolhaFicha(p) {
   let html = "";
@@ -1195,7 +1204,7 @@ function abrirFicha(id, k, empurrar = true, t) {
   desenharFicha();
   if (empurrar) history.pushState({ ficha: id }, "", `#produto-${id}`);
   clearTimeout(fichaFecha);
-  if (!ficha.open) { ficha.showModal(); requestAnimationFrame(() => requestAnimationFrame(() => ficha.classList.add("aberta"))); }
+  if (!ficha.open) { ficha.dataset.ponteiro = viaPonteiro; ficha.showModal(); requestAnimationFrame(() => requestAnimationFrame(() => ficha.classList.add("aberta"))); }
   else ficha.classList.add("aberta");
   ficha.scrollTop = 0;
 }
@@ -1254,11 +1263,12 @@ document.addEventListener("click", (e) => {
 });
 
 const sacola = $("#sacola");
+semMoldura(sacola);
 let sacolaFecha;
 function abrirSacola() {
   clearTimeout(sacolaFecha);
   desenharSacola();
-  if (!sacola.open) sacola.showModal();
+  if (!sacola.open) { sacola.dataset.ponteiro = viaPonteiro; sacola.showModal(); }
   requestAnimationFrame(() => requestAnimationFrame(() => sacola.classList.add("aberta")));
 }
 function fecharSacola() {
