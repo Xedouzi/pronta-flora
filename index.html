@@ -625,12 +625,18 @@
   .produto { border-radius: 20px; }
   .produto-foto { margin: 8px 8px 0; border-radius: 999px 999px 14px 14px; border-bottom: 0; background: var(--ceu); overflow: hidden; }
   .produto-foto img { mix-blend-mode: multiply; padding: 6%; }
+  /* vaso vazio ocupa a foto inteira; com mais margem fica do tamanho das plantas ao lado */
+  .produto-vasos .produto-foto img { padding: 20% 18% 12%; }
   /* o selo fica no canto do cartao, fora da curva do arco */
   /* a moldura fica por dentro do cartao, para a fileira que rola de lado nao cortar */
   .produto { position: relative; box-shadow: none; }
   .produto::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; box-shadow: inset 0 0 0 1.5px #CFDFC9; pointer-events: none; transition: box-shadow var(--dur-ui) var(--ease-out); }
   .produto .produto-foto { position: static; }
   .produto .selo { left: .7rem; top: .7rem; z-index: 1; border-radius: 6px 6px 6px 2px; white-space: nowrap; }
+  /* o cartao inteiro abre o produto: o link do nome se estende por cima de tudo; so o Adicionar fica acima dele */
+  .produto h4 a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+  .produto .btn { position: relative; z-index: 2; }
+  .produto { cursor: pointer; }
   .ficha-foto .selo { left: 1rem; top: 1rem; border-radius: 6px 6px 6px 2px; }
   @media (hover: hover) and (pointer: fine) { .produto:hover::after { box-shadow: inset 0 0 0 2px var(--azul-2); } }
   .produto-marca { color: var(--vermelho); }
@@ -1035,7 +1041,7 @@ const cartao = (p) => {
     : precisaEscolher(p) ? `<button class="btn" type="button" data-abrir="${p.id}" aria-label="Adicionar: escolher ${p.vars.length > 1 ? `entre ${p.vars.length} ${PLURAL[p.rotulo]}` : "o tamanho"}"><svg aria-hidden="true"><use href="#i-sacola"/></svg>Adicionar</button>`
     : `<button class="btn" type="button" data-adicionar="${p.id}"><svg aria-hidden="true"><use href="#i-sacola"/></svg>Adicionar</button>`;
   return `
-  <li class="produto">
+  <li class="produto produto-${p.cat}">
     <a class="produto-foto" href="#produto-${p.id}" data-abrir="${p.id}" tabindex="-1" aria-hidden="true"><img src="${fotoP(va.f)}" width="600" height="600" alt="" loading="lazy">${p.selo ? `<span class="selo">${p.selo}</span>` : ""}</a>
     <div class="produto-info">
       <p class="produto-marca">${esc(p.marca)}</p>
