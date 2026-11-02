@@ -188,18 +188,17 @@
   .destaque-texto > p:not(.destaque-chapeu) { max-width: 26rem; color: var(--tinta-2); font-size: 1.05rem; line-height: 1.55; }
   .destaque .btn { margin-top: .3rem; }
   /* a mesa: tres pecas lado a lado, a do meio maior */
-  .mesa { align-self: end; container-type: inline-size; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; margin: 0; padding: 0 0 calc(var(--mesa) - 34px); list-style: none; min-width: 0; }
-  /* tres colunas iguais: os vasos ficam no meio de cada uma (o recorte ja vem com o vaso centrado) e o preco logo abaixo */
-  .mesa > li { display: flex; justify-content: center; min-width: 0; }
-  /* a do meio vem na frente e as folhas se encostam, como num arranjo de loja */
+  .mesa { align-self: end; container-type: inline-size; display: flex; justify-content: center; align-items: flex-end; column-gap: var(--vao); margin: 0; padding: 0 0 calc(var(--mesa) - 34px); list-style: none; min-width: 0; }
+  /* o recorte ja vem com o vaso no centro, entao o preco fica embaixo do vaso; o script mede o desenho de cada peca
+     e deixa o mesmo respiro entre as folhas (--w e a largura do desenho, --dx alinha a caixa da foto a ele) */
+  .mesa { --vao: clamp(1.4rem, 2.8vw, 2.6rem); }
+  .mesa > li { flex: none; width: var(--w, auto); }
+  .mesa > li > .peca { width: max-content; margin-left: var(--dx, 0); }
   .mesa > li:nth-child(2) { position: relative; z-index: 1; }
   .peca { position: relative; display: block; color: inherit; text-decoration: none; }
-  .peca img { display: block; width: auto; height: calc(var(--alto) * .8); max-width: none; object-fit: contain; object-position: 50% 100%; }
-  .mesa > li:nth-child(2) .peca img { height: var(--alto); }
-  .mesa > li:nth-child(3) .peca img { height: calc(var(--alto) * .72); }
-  /* vaso nao pode encavalar no outro como folha: cada um cabe na sua coluna, o do meio um pouco maior */
-  .mesa-vasos .peca img { max-width: calc(100cqi / 3 + 2rem); }
-  .mesa-vasos > li:nth-child(odd) .peca img { max-width: calc(100cqi / 3 - 1.25rem); }
+  .peca img { display: block; width: auto; height: calc(var(--alto) * .8 * var(--esc, 1)); max-width: none; object-fit: contain; object-position: 50% 100%; }
+  .mesa > li:nth-child(2) .peca img { height: calc(var(--alto) * var(--esc, 1)); }
+  .mesa > li:nth-child(3) .peca img { height: calc(var(--alto) * .72 * var(--esc, 1)); }
   /* sombra macia onde o vaso encosta na mesa */
   .peca::before { content: ""; position: absolute; z-index: -1; left: 8%; right: 8%; bottom: -7px; height: 18px; border-radius: 50%; background: radial-gradient(closest-side, rgba(70, 40, 16, .32), transparent); }
   .peca-preco { position: absolute; left: 50%; top: calc(100% + 9px); translate: -50% 0; padding: .2rem .65rem; border-radius: 999px; background: var(--branco); color: var(--azul-2); font: 700 .92rem/1.3 var(--fonte-titulo); white-space: nowrap; transition: background-color var(--dur-ui) ease, color var(--dur-ui) ease; }
@@ -241,6 +240,7 @@
     .destaque h2 { font-size: clamp(1.45rem, 1.1rem + 1.6vw, 1.8rem); }
     .cursiva { font-size: clamp(3rem, 2rem + 4vw, 3.8rem); }
     .destaque-texto > p:not(.destaque-chapeu) { font-size: 1rem; }
+    .mesa { --vao: .6rem; }
     .peca-preco { font-size: .82rem; padding: .15rem .5rem; }
     .destaques .seta { display: none; }
     .destaques .pontos { position: static; translate: none; justify-content: center; margin-top: .1rem; }
@@ -1602,6 +1602,38 @@ desenharLista();
       return `<li><a class="peca" href="#produto-${p.id}" data-abrir="${p.id}" aria-label="${esc(p.nome)}, ${preco}"><img src="${fotoP(va.f + "-recorte")}?v=3" alt=""><span class="peca-preco" aria-hidden="true">${preco}</span></a></li>`;
     }).join("");
   });
+  /* as tres pecas encolhem juntas so o necessario para sobrar um respiro entre as folhas (medido no desenho, nao na caixa) e a do meio continua a maior */
+  const lados = new WeakMap();
+  const medir = (img) => {
+    const c = document.createElement("canvas"), w = (c.width = img.naturalWidth), h = (c.height = img.naturalHeight), g = c.getContext("2d");
+    g.drawImage(img, 0, 0);
+    const d = g.getImageData(0, 0, w, h).data;
+    /* conta o desenho por coluna; pontinhos soltos do recorte nao contam */
+    const n = new Uint16Array(w);
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (d[(y * w + x) * 4 + 3] > 60) n[x]++;
+    let mn = 0, mx = w - 1;
+    while (mn < mx && n[mn] < 4) mn++;
+    while (mx > mn && n[mx] < 4) mx--;
+    lados.set(img, [(w / 2 - mn) / h, (mx - w / 2) / h]);
+  };
+  const encaixar = () => trilho.querySelectorAll(".mesa").forEach((ul) => {
+    const lis = [...ul.children], imgs = lis.map((li) => li.querySelector("img"));
+    if (imgs.some((i) => !i.complete || !i.naturalWidth)) return;
+    imgs.forEach((i) => lados.has(i) || medir(i));
+    ul.style.removeProperty("--esc");
+    const vao = parseFloat(getComputedStyle(ul).columnGap) || 0;
+    const m = imgs.map((i) => ({ L: lados.get(i)[0] * i.offsetHeight, R: lados.get(i)[1] * i.offsetHeight, w: i.offsetWidth }));
+    const esc = Math.min(1, (ul.clientWidth - 2 * vao) / m.reduce((t, x) => t + x.L + x.R, 0));
+    ul.style.setProperty("--esc", esc.toFixed(3));
+    lis.forEach((li, k) => {
+      /* foto estreita ainda guarda a largura do preco, centrada no vaso */
+      const { L, R, w } = m[k], folga = Math.max(0, (li.querySelector(".peca-preco").offsetWidth + 10 - (L + R) * esc) / 2);
+      li.style.setProperty("--w", ((L + R) * esc + 2 * folga).toFixed(1) + "px");
+      li.style.setProperty("--dx", ((L - w / 2) * esc + folga).toFixed(1) + "px");
+    });
+  });
+  trilho.querySelectorAll(".mesa img").forEach((i) => i.addEventListener("load", encaixar));
+  new ResizeObserver(encaixar).observe(trilho);
   pontos.innerHTML = slides.map((_, k) => `<button class="ponto" type="button" aria-label="Destaque ${k + 1}"></button>`).join("");
   const botoes = [...pontos.children];
   let atual = 0, timer = null;
