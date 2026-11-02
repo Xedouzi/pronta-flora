@@ -1596,7 +1596,7 @@ desenharLista();
   trilho.querySelectorAll("[data-itens]").forEach((ul) => {
     ul.innerHTML = ul.dataset.itens.split(" ").map((item) => {
       const [id, k] = item.split(":"), p = porId(id), va = p.vars[k ? +k : varInicial(p)], preco = reais(precoDe(p));
-      return `<li><a class="peca" href="#produto-${p.id}" data-abrir="${p.id}" aria-label="${esc(p.nome)}, ${preco}"><img src="${fotoP(va.f + "-recorte")}" alt=""><span class="peca-preco" aria-hidden="true">${preco}</span></a></li>`;
+      return `<li><a class="peca" href="#produto-${p.id}" data-abrir="${p.id}" aria-label="${esc(p.nome)}, ${preco}"><img src="${fotoP(va.f + "-recorte")}?v=2" alt=""><span class="peca-preco" aria-hidden="true">${preco}</span></a></li>`;
     }).join("");
   });
   pontos.innerHTML = slides.map((_, k) => `<button class="ponto" type="button" aria-label="Destaque ${k + 1}"></button>`).join("");
