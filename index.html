@@ -62,7 +62,7 @@
 
     --fonte: "Commissioner", "Instrument Sans reserva", Arial, sans-serif;
     --fonte-titulo: "Fraunces", "Bricolage reserva", Georgia, serif;
-    --largura: 1240px;
+    --largura: 1440px;
     --margem: clamp(16px, 4vw, 40px);
   }
   @font-face { font-family: "Instrument Sans reserva"; src: local("Arial"); size-adjust: 98%; }
@@ -125,7 +125,7 @@
   .menu { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0 clamp(1.6rem, 2.6vw, 2.6rem); align-items: center; margin-left: auto; }
   .menu a { color: var(--tinta); text-decoration: none; padding: .55rem 0; white-space: nowrap; font-weight: 500; font-size: .98rem; }
   .menu a:hover { color: var(--azul); text-decoration: underline; }
-  .sacola-botao { position: relative; display: inline-flex; align-items: center; gap: .45rem; flex: none; min-height: 48px; padding: .45rem 1rem; border: 0; border-radius: 12px; background: var(--azul); color: #fff; font: 650 1rem/1 var(--fonte); cursor: pointer; transition: background-color var(--dur-ui) ease; }
+  .sacola-botao { position: relative; display: inline-flex; align-items: center; gap: .45rem; flex: none; min-height: 48px; padding: .45rem 1rem; border: 0; border-radius: 12px; background: var(--azul); color: #fff; font: 650 1rem/1 var(--fonte); white-space: nowrap; cursor: pointer; transition: background-color var(--dur-ui) ease; }
   .sacola-botao:hover { background: var(--azul-2); }
   .sacola-botao svg { width: 22px; height: 22px; }
   .sacola-botao .conta { display: inline-grid; place-items: center; min-width: 1.55rem; height: 1.55rem; padding: 0 .35rem; border-radius: 999px; background: var(--vermelho); color: #fff; font-size: .82rem; }
@@ -182,10 +182,9 @@
   .destaque::after { right: 3%; width: 49%; }
   .destaque-texto { align-self: center; display: grid; justify-items: start; gap: .9rem; min-width: 0; padding-bottom: calc(var(--mesa) + .5rem); }
   .destaque-texto > * { max-width: 100%; }
-  .destaque-chapeu { color: var(--vermelho); font-weight: 650; font-size: .98rem; }
   .destaque h2 { display: grid; gap: .1em; color: var(--marinho); font-size: clamp(1.5rem, 1rem + 1.4vw, 2.2rem); line-height: 1.08; max-width: 12em; }
   .cursiva { margin: -.1em 0 -.05em -.04em; color: var(--azul); font: 400 clamp(3rem, 1.6rem + 4vw, 5.2rem)/.95 "Allura", cursive; letter-spacing: 0; white-space: nowrap; font-variation-settings: normal; }
-  .destaque-texto > p:not(.destaque-chapeu) { max-width: 26rem; color: var(--tinta-2); font-size: 1.05rem; line-height: 1.55; }
+  .destaque-texto > p { max-width: 26rem; color: var(--tinta-2); font-size: 1.05rem; line-height: 1.55; }
   .destaque .btn { margin-top: .3rem; }
   /* a mesa: tres pecas lado a lado, a do meio maior */
   .mesa { align-self: end; container-type: inline-size; display: flex; justify-content: center; align-items: flex-end; column-gap: var(--vao); margin: 0; padding: 0 0 calc(var(--mesa) - 34px); list-style: none; min-width: 0; }
@@ -226,8 +225,8 @@
   .seta svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
   .pontos { display: flex; gap: 0; }
   .ponto { width: 30px; height: 40px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; place-items: center; }
-  .ponto::before { content: ""; width: 10px; height: 10px; border-radius: 999px; background: rgba(255, 255, 255, .75); transition: width var(--dur-ui) var(--ease-out), background-color var(--dur-ui) ease; }
-  .ponto[aria-current="true"]::before { width: 26px; background: var(--azul-2); }
+  .ponto::before { content: ""; width: 26px; height: 10px; border-radius: 999px; background: rgba(255, 255, 255, .75); transform: scaleX(.385); transition: transform var(--dur-ui) var(--ease-out), background-color var(--dur-ui) ease; }
+  .ponto[aria-current="true"]::before { transform: none; background: var(--azul-2); }
   @media (max-width: 900px) {
     .destaque { padding-inline: clamp(3.6rem, 7vw, 4.6rem); }
     .destaques .pontos { left: clamp(3.6rem, 7vw, 4.6rem); }
@@ -239,7 +238,7 @@
     .destaque-texto { padding-bottom: 0; gap: .7rem; }
     .destaque h2 { font-size: clamp(1.45rem, 1.1rem + 1.6vw, 1.8rem); }
     .cursiva { font-size: clamp(3rem, 2rem + 4vw, 3.8rem); }
-    .destaque-texto > p:not(.destaque-chapeu) { font-size: 1rem; }
+    .destaque-texto > p { font-size: 1rem; }
     .mesa { --vao: .6rem; }
     .peca-preco { font-size: .82rem; padding: .15rem .5rem; }
     .destaques .seta { display: none; }
@@ -279,12 +278,12 @@
   .vitrine { display: grid; gap: clamp(2.4rem, 4vw, 3.4rem); padding: 0; margin: 0; list-style: none; }
   .prateleira { min-width: 0; }
   .prateleira.some { display: none; }
-  .prateleira-topo { display: flex; align-items: center; gap: .5rem 1rem; margin-bottom: 1rem; }
+  .prateleira-topo { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; margin-bottom: 1rem; }
   .prateleira-topo h3 { margin-right: auto; font-size: clamp(1.35rem, 1.15rem + .7vw, 1.75rem); }
   .ver-tudo { min-height: 44px; padding: 0; border: 0; background: none; color: var(--azul); font: 600 1rem/1.2 var(--fonte); text-decoration: underline; text-underline-offset: .18em; cursor: pointer; }
   .prateleira-setas { display: flex; gap: .4rem; }
   .prateleira-setas .seta { box-shadow: inset 0 0 0 1px var(--linha); }
-  .prateleira-setas .seta:disabled { opacity: .35; cursor: default; }
+  .prateleira-setas .seta:disabled { background: var(--ceu); color: var(--linha-forte); box-shadow: none; cursor: default; }
   .fileira { --col: 5; --vao: 1.1rem; position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - (var(--col) - 1) * var(--vao)) / var(--col)); gap: var(--vao); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0; margin: 0; list-style: none; }
   .fileira::-webkit-scrollbar { display: none; }
   .fileira > li { scroll-snap-align: start; }
@@ -305,21 +304,43 @@
   .selo { position: absolute; left: .7rem; top: .7rem; padding: .25rem .65rem; border-radius: 999px; background: var(--vermelho); color: #fff; font-size: .8rem; font-weight: 650; }
   .produto-info { display: flex; flex-direction: column; gap: .35rem; min-width: 0; padding: .85rem .9rem .95rem; }
   .produto-marca { color: var(--azul); font-size: .86rem; font-weight: 650; }
-  .produto h4 { margin: 0; font-size: 1rem; font-weight: 600; line-height: 1.3; }
-  .produto h4, .produto-desc { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; min-height: 2lh; }
+  .produto-nome { margin: 0; font-size: 1rem; font-weight: 600; line-height: 1.3; }
+  .produto-nome, .produto-desc { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; min-height: 2lh; }
   .produto-desc { color: var(--tinta-2); font-size: .9rem; line-height: 1.45; }
-  .produto h4 a { color: inherit; text-decoration: none; }
-  @media (hover: hover) and (pointer: fine) { .produto h4 a:hover { text-decoration: underline; text-underline-offset: 3px; } }
+  .produto-nome a { color: inherit; text-decoration: none; }
+  @media (hover: hover) and (pointer: fine) { .produto-nome a:hover { text-decoration: underline; text-underline-offset: 3px; } }
   .produto-preco { font-weight: 700; font-size: 1.15rem; }
   .produto-preco small { font-size: .8rem; font-weight: 500; color: var(--tinta-2); }
   .produto .btn { width: 100%; min-height: 46px; padding-inline: .8rem; margin-top: auto; }
   .btn.adicionado { background: var(--marinho); color: #fff; }
-  .procura { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: .4rem 1.5rem; margin-top: clamp(3rem, 2rem + 3vw, 4.5rem); padding: 1.4rem 1.6rem; border-radius: var(--raio); background: var(--branco); box-shadow: 0 0 0 1px var(--linha); }
-  .procura h3 { font-size: 1.4rem; }
-  .procura p { color: var(--tinta-2); }
-  .procura .btn { grid-column: 2; grid-row: 1 / span 2; }
-  @media (max-width: 640px) { .procura { grid-template-columns: minmax(0, 1fr); } .procura .btn { grid-column: auto; grid-row: auto; justify-self: start; margin-top: .4rem; } }
-  @media (max-width: 560px) { .produto-desc { display: none; } .produto-info { padding: .7rem .7rem .8rem; } .produto h4 { font-size: .95rem; } }
+  /* etiqueta do fim da fileira: o tamanho de um cartao no celular, o resto da fileira no computador */
+  .fim { position: relative; display: grid; grid-template-rows: auto 1fr; overflow: hidden; min-width: 0; border-radius: 20px; scroll-snap-align: start; }
+  .fim-texto { display: flex; flex-direction: column; gap: .5rem; min-width: 0; padding: 1.1rem 1.1rem 1.2rem; font-size: .93rem; line-height: 1.45; }
+  .fim-titulo { font-family: var(--fonte-titulo); font-size: 1.4rem; font-weight: 750; line-height: 1.05; letter-spacing: -.02em; overflow-wrap: normal; }
+  .fim .btn { align-self: stretch; min-height: 46px; margin-top: auto; padding-inline: .8rem; overflow-wrap: normal; }
+  .fim-extra { display: none; }
+  /* canteiro: a faixa de terra por cima, como o cartao da Planta certa */
+  .fim-canteiro { padding-top: 16px; background: var(--azul-claro); color: var(--tinta-2); }
+  .fim-canteiro::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 16px; background: radial-gradient(circle, rgba(255, 255, 255, .22) 1.4px, transparent 1.8px) 0 0 / 11px 8px, var(--terra); }
+  .fim-canteiro .fim-titulo { color: var(--tinta); }
+  .fim-fotos { display: flex; justify-content: center; gap: .5rem; padding: 1.1rem 1.1rem 0; }
+  .fim-fotos img { width: calc(25% - .4rem); max-width: 92px; aspect-ratio: 1; padding: 6%; border-radius: 46px 46px 12px 12px; background: #fff; object-fit: contain; }
+  /* estufa: a foto do jardim e o verde-escuro do rodape */
+  .fim-estufa { background: var(--marinho); color: #CFE0CB; }
+  .fim-estufa .fim-titulo { color: #fff; }
+  .fim-foto { display: block; width: 100%; aspect-ratio: 4 / 3; height: auto; object-fit: cover; }
+  @media (min-width: 1101px) {
+    .fileira .fim[data-falta] { grid-column: span var(--falta); grid-template-rows: none; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; }
+    .fileira .fim[data-falta] .fim-texto { justify-content: center; padding: 1.6rem 1.6rem 1.7rem; }
+    .fileira .fim[data-falta] .fim-titulo { font-size: 1.75rem; }
+    .fileira .fim[data-falta] .btn { align-self: start; margin-top: .5rem; }
+    .fileira .fim-canteiro[data-falta] .fim-fotos { order: 2; flex-wrap: wrap; align-content: center; padding: 1.4rem 1.6rem 1.4rem 0; }
+    .fileira .fim-canteiro[data-falta] .fim-fotos img { width: calc(50% - .25rem); max-width: 128px; }
+    .vitrine:not(.filtrada) .fim[data-falta] .fim-extra { display: inline; }
+  }
+  .filtrada .fim { grid-column: auto !important; grid-template-columns: none !important; }
+  @media (max-width: 560px) { .fim-titulo { font-size: 1.2rem; } .fim-texto { padding: .9rem .9rem 1rem; } .fim .btn svg { display: none; } .fim-fotos { flex-wrap: wrap; padding: .9rem .9rem 0; } .fim-fotos img { width: calc(50% - .25rem); max-width: 72px; } }
+  @media (max-width: 560px) { .produto-desc { display: none; } .produto-info { padding: .7rem .7rem .8rem; } .produto-nome { font-size: .95rem; } }
 
   /* ---------- presente certo: a faixa azul, com as sugestoes num cartao amarrado pela fita ---------- */
   .presente { background: var(--azul); color: #fff; padding-block: clamp(3rem, 7vw, 5.5rem); }
@@ -358,7 +379,7 @@
   .lista-mais { justify-self: start; }
   .lista-botoes { display: grid; gap: .55rem; }
   .lista-botoes .btn { width: 100%; }
-  .lista-status { font-size: .95rem; }
+  .lista-status { font-size: .95rem; font-variant-numeric: tabular-nums; }
   .lista-status:empty { display: none; }
   .lista-nota { color: var(--tinta-2); font-size: .88rem; }
   /* embalagem para presente, no carrinho */
@@ -373,14 +394,30 @@
   .loja-fotos img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--raio); }
   .loja-fotos figure:last-child { margin-top: clamp(1.5rem, 4vw, 3rem); }
   .loja-texto { display: grid; grid-template-columns: minmax(0, 1fr); gap: .9rem; }
-  .loja-texto > p:not(.nota-google) { font-size: 1.1rem; color: var(--tinta-2); max-width: 36rem; }
-  .nota-google { display: flex; flex-wrap: wrap; align-items: baseline; gap: .3rem .7rem; margin-top: .3rem; }
-  .nota-google strong { font-family: var(--fonte-titulo); font-size: 2.4rem; font-weight: 800; line-height: 1; color: var(--azul); }
-  .avaliacoes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
-  .avaliacao { display: flex; flex-direction: column; padding: .95rem 1rem; border-radius: var(--raio); background: var(--ceu); }
-  .avaliacao p { font-size: .95rem; line-height: 1.4; font-weight: 500; }
-  .avaliacao footer { margin-top: auto; padding-top: .5rem; color: var(--tinta-2); font-size: .82rem; }
-  @media (max-width: 1080px) { .avaliacoes { grid-template-columns: minmax(0, 1fr); } }
+  .loja-texto > p { font-size: 1.1rem; color: var(--tinta-2); max-width: 36rem; }
+  /* avaliacoes no Google: a nota numa plaquinha verde com a estaca de madeira e tres avaliacoes com nome e data, como no Google */
+  .google { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: 1.1rem; margin-top: clamp(3rem, 6vw, 4.5rem); padding-bottom: 16px; scroll-margin-top: 100px; }
+  .google-nota { position: relative; display: grid; justify-items: start; align-content: start; gap: .5rem; padding: 1.7rem 1.6rem; border-radius: 20px; background: var(--azul); color: #DCEBD8; }
+  .google-nota::after { content: ""; position: absolute; left: 50%; bottom: -16px; width: 14px; height: 16px; translate: -50% 0; border-radius: 0 0 5px 5px; background: var(--terra); }
+  .google-marca { display: inline-flex; align-items: center; gap: .55rem; font-size: .95rem; font-weight: 500; }
+  .g-logo { width: 20px; height: 20px; flex: none; }
+  .google-marca .g-logo { width: 28px; height: 28px; padding: 4px; border-radius: 50%; background: #fff; }
+  .google-numero { margin-top: .3rem; font-family: var(--fonte-titulo); font-size: 4.2rem; font-weight: 750; line-height: .9; color: #fff; font-variant-numeric: tabular-nums; }
+  .google-nota .estrelas { font-size: 1.25rem; color: #F2C318; }
+  .google-nota .btn { margin-top: .6rem; min-height: 48px; }
+  .estrelas { display: inline-flex; gap: 1px; color: #E8A100; }
+  .estrelas svg { width: 1.05em; height: 1.05em; fill: currentColor; }
+  .depoimentos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.1rem; margin: 0; padding: 0; list-style: none; }
+  .depoimentos li { display: flex; flex-direction: column; gap: .75rem; min-width: 0; padding: 1.35rem 1.4rem 1.5rem; border-radius: 20px; background: var(--ceu); }
+  .dep-autor { display: grid; grid-template-columns: 40px minmax(0, 1fr) 18px; align-items: center; gap: .75rem; }
+  .dep-avatar { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--av); color: #fff; font-size: 1.05rem; font-weight: 600; }
+  .dep-autor p { min-width: 0; line-height: 1.3; }
+  .dep-autor strong { display: block; font-weight: 600; }
+  .dep-autor p span { color: var(--tinta-2); font-size: .86rem; }
+  .dep-autor .g-logo { width: 18px; height: 18px; align-self: start; }
+  .depoimentos blockquote { margin: 0; font-size: 1.02rem; line-height: 1.55; }
+  @media (max-width: 1100px) { .google { grid-template-columns: minmax(0, 1fr); } .google-nota { grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: 1.2rem; } .google-marca, .google-nota .btn { grid-column: 1 / -1; } .google-numero { grid-row: span 2; margin: 0; } .google-nota::after { display: none; } }
+  @media (max-width: 860px) { .depoimentos { grid-template-columns: minmax(0, 1fr); } }
   @media (max-width: 860px) { .loja-grade { grid-template-columns: minmax(0, 1fr); } .loja-fotos { max-width: 560px; } }
 
   /* ---------- como chegar ---------- */
@@ -419,33 +456,6 @@
   @media (max-width: 900px) { .rodape-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); } .rodape-sobre { grid-column: 1 / -1; } }
   @media (max-width: 480px) { .rodape-grade { gap: 1.8rem 1.2rem; } .rodape-coluna:last-child { grid-column: 1 / -1; } }
 
-  /* ---------- pagina do produto: abre por cima da vitrine e tem endereco proprio (#produto-id) ---------- */
-  .ficha {
-    position: fixed; width: min(100% - 2rem, 980px); max-width: none; max-height: min(92dvh, 740px); margin: auto; padding: 0; border: 0;
-    border-radius: 22px; background: var(--branco); color: var(--tinta); overflow: auto; overscroll-behavior: contain;
-    opacity: 0; transform: translateY(14px) scale(.98); transition: opacity .28s var(--ease-out), transform .28s var(--ease-out);
-  }
-  .ficha[open] { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
-  .ficha.aberta { opacity: 1; transform: none; }
-  .ficha::backdrop { background: rgba(15, 30, 74, .55); opacity: 0; transition: opacity .28s ease; }
-  .ficha.aberta::backdrop { opacity: 1; }
-  .ficha > .fechar { position: absolute; top: .8rem; right: .8rem; z-index: 2; }
-  /* galeria: a coluna da foto vai ate o fim da pagina; foto e miniaturas ficam paradas enquanto o texto rola */
-  .ficha-galeria { align-self: stretch; min-width: 0; background: var(--ceu); border-right: 1px solid var(--linha); }
-  .ficha-galeria-dentro { position: sticky; top: 0; display: grid; gap: .8rem; padding-bottom: 1.2rem; }
-  .ficha-foto { position: relative; aspect-ratio: 1; }
-  .miniaturas { display: flex; flex-wrap: wrap; gap: .6rem; padding-inline: clamp(1rem, 2.4vw, 1.6rem); }
-  .miniatura { width: 76px; aspect-ratio: 1; padding: 0; border: 0; border-radius: 14px; background: var(--branco); box-shadow: inset 0 0 0 1.5px var(--linha); cursor: pointer; overflow: hidden; transition: box-shadow var(--dur-ui) var(--ease-out); }
-  .miniatura img { display: block; width: 100%; height: 100%; object-fit: contain; padding: 7%; mix-blend-mode: multiply; }
-  @media (hover: hover) and (pointer: fine) { .miniatura:hover { box-shadow: inset 0 0 0 1.5px var(--linha-forte); } }
-  .miniatura[aria-pressed="true"] { box-shadow: inset 0 0 0 2.5px var(--azul-2); }
-  .miniatura:focus-visible { outline: 3px solid var(--azul); outline-offset: 2px; }
-  .ficha-nota { min-height: 1.4em; padding-inline: clamp(1rem, 2.4vw, 1.6rem); color: var(--tinta-2); font-size: .9rem; }
-  .ficha-foto img { display: block; width: 100%; height: 100%; object-fit: contain; }
-  .ficha-info { display: flex; flex-direction: column; gap: .85rem; min-width: 0; padding: clamp(1.4rem, 3vw, 2.4rem); }
-  .ficha-info h2 { padding-right: 2.6rem; font-size: clamp(1.45rem, 1.2rem + .9vw, 1.9rem); line-height: 1.12; }
-  .ficha-preco { font-size: 1.6rem; font-weight: 700; }
-  .ficha-desc { color: var(--tinta-2); }
   .variacao { min-width: 0; margin: .2rem 0 0; padding: 0; border: 0; }
   .variacao legend { padding: 0; margin-bottom: .45rem; color: var(--tinta-2); font-size: .95rem; }
   .variacao legend strong { color: var(--tinta); font-weight: 600; }
@@ -456,22 +466,105 @@
   @media (hover: hover) and (pointer: fine) { .opcao:hover span { box-shadow: inset 0 0 0 1.5px var(--linha-forte); } }
   .opcao input:checked + span { background: var(--marinho); color: #fff; box-shadow: none; }
   .opcao input:focus-visible + span { outline: 3px solid var(--azul); outline-offset: 3px; }
-  .ficha-add { width: 100%; min-height: 52px; margin-top: .3rem; }
-  .ficha-status { min-height: 1.5em; margin-top: -.3rem; font-size: .95rem; }
-  .ficha-status:empty { display: none; }
   .ver-sacola { padding: 0; border: 0; background: none; color: var(--azul); font: 600 .95rem/1.5 var(--fonte); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-  .ficha-entrega { display: grid; gap: .35rem; margin: .3rem 0 0; padding: 1rem 0 0; border-top: 1px solid var(--linha); color: var(--tinta-2); font-size: .92rem; list-style: none; }
-  .ficha-entrega li { display: flex; gap: .55rem; }
-  .ficha-entrega li::before { content: ""; flex: none; width: 6px; height: 6px; margin-top: .55em; border-radius: 50%; background: var(--azul); }
-  @media (max-width: 760px) {
-    .ficha { width: 100%; max-height: 94dvh; margin: auto 0 0; border-radius: 22px 22px 0 0; transform: translateY(40px); }
-    .ficha[open] { grid-template-columns: minmax(0, 1fr); }
-    .ficha-galeria { border-right: 0; border-bottom: 1px solid var(--linha); }
-    .ficha-galeria-dentro { position: static; padding-bottom: .9rem; gap: .6rem; }
-    .ficha-foto { aspect-ratio: 4 / 3; }
-    .miniatura { width: 62px; border-radius: 12px; }
+  /* ---------- pagina do produto: endereco proprio (?produto=id); a vitrine sai e a pagina entra ---------- */
+  .pp { padding-block: clamp(.6rem, 2vw, 1.2rem) 0; }
+  .trilha ol { display: flex; flex-wrap: wrap; align-items: center; gap: 0 .55rem; margin: 0 0 clamp(.4rem, 1.5vw, 1rem); padding: 0; list-style: none; color: var(--tinta-2); font-size: .92rem; }
+  .trilha li { display: inline-flex; align-items: center; gap: .55rem; min-width: 0; }
+  .trilha li + li::before { content: ""; flex: none; width: 6px; height: 6px; border: solid var(--linha-forte); border-width: 1.5px 1.5px 0 0; transform: rotate(45deg); }
+  .trilha a { display: inline-flex; align-items: center; min-height: 44px; color: var(--tinta-2); text-decoration: none; }
+  @media (hover: hover) and (pointer: fine) { .trilha a:hover { color: var(--azul); text-decoration: underline; } }
+  .trilha [aria-current] { color: var(--tinta); font-weight: 600; }
+  .pp-grade { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: start; }
+  .pp-galeria { position: sticky; top: 92px; min-width: 0; }
+  /* a foto na janela em arco da estufa, como nos cartoes da vitrine */
+  .pp-foto { position: relative; margin: 0; overflow: hidden; aspect-ratio: 1; border-radius: 50% 50% 28px 28px / 30% 30% 28px 28px; background: var(--ceu); }
+  .pp-foto img { display: block; width: 100%; height: 100%; padding: 7%; object-fit: contain; mix-blend-mode: multiply; transform-origin: var(--zx, 50%) var(--zy, 50%); transition: transform .3s var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) { .pp-foto { cursor: zoom-in; } .pp-foto.zoom img { transform: scale(2.1); } }
+  .pp-foto .selo { left: 1.1rem; top: auto; bottom: 1.1rem; z-index: 1; border-radius: 6px 6px 6px 2px; }
+  .pp-vistas { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .9rem; }
+  .pp-vistas:empty { display: none; }
+  .pp-vistas button { width: 76px; height: 76px; padding: 0; border: 0; border-radius: 38px 38px 12px 12px; background: var(--ceu); box-shadow: inset 0 0 0 1.5px transparent; cursor: pointer; overflow: hidden; transition: box-shadow var(--dur-ui) ease, transform .12s var(--ease-out); }
+  .pp-vistas button:active { transform: scale(.96); }
+  @media (hover: hover) and (pointer: fine) { .pp-vistas button:hover { box-shadow: inset 0 0 0 1.5px var(--linha-forte); } }
+  .pp-vistas button[aria-pressed="true"] { box-shadow: inset 0 0 0 2.5px var(--azul); }
+  .pp-vistas img { display: block; width: 100%; height: 100%; padding: 8%; object-fit: contain; mix-blend-mode: multiply; }
+  .pp-vista-nota { min-height: 1.45em; margin-top: .55rem; color: var(--tinta-2); font-size: .9rem; }
+  .pp-info { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+  .pp-info .produto-marca { font-size: .95rem; }
+  /* planta: o nome cientifico em italico, como na plaquinha do viveiro */
+  .pp-cientifico { font-family: var(--fonte-titulo); font-style: italic; font-weight: 500; font-size: 1.08rem; color: var(--vermelho); }
+  .pp-info h1 { margin-top: -.55rem; font-size: clamp(1.8rem, 1.25rem + 1.6vw, 2.6rem); line-height: 1.04; overflow-wrap: break-word; }
+  .pp-info h1:focus { outline: 0; }
+  .pp-nota { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .1rem .5rem; align-self: start; min-height: 44px; margin-top: -.6rem; color: var(--tinta-2); font-size: .95rem; text-decoration: none; }
+  @media (hover: hover) and (pointer: fine) { .pp-nota:hover { color: var(--tinta); text-decoration: underline; text-underline-offset: 3px; } }
+  .pp-preco { display: grid; grid-template-columns: minmax(0, 1fr); gap: .2rem; padding-top: .9rem; border-top: 1px solid var(--linha); }
+  .pp-preco strong { font-family: var(--fonte-titulo); font-size: clamp(2.1rem, 1.7rem + 1.1vw, 2.7rem); font-weight: 750; line-height: 1; color: var(--azul); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .pp-preco span { color: var(--tinta-2); }
+  .pp-desc { color: var(--tinta-2); }
+  /* cuidados: a plaquinha espetada na terra, com a estaca de madeira, como as da faixa de fatos */
+  .pp-plaquinha { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr)); gap: .9rem 1.1rem; margin: .1rem 0 16px; padding: 1.1rem 1.2rem 1.15rem; border-radius: 16px; background: var(--azul-claro); list-style: none; }
+  .pp-plaquinha::after { content: ""; position: absolute; left: 50%; bottom: -16px; width: 12px; height: 16px; translate: -50% 0; border-radius: 0 0 5px 5px; background: var(--terra); }
+  .pp-plaquinha li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: .1rem .6rem; align-items: start; color: var(--tinta-2); font-size: .92rem; line-height: 1.35; }
+  .pp-plaquinha svg { grid-row: span 2; width: 26px; height: 26px; fill: none; color: var(--azul); stroke: var(--azul); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .pp-plaquinha .pet svg { color: var(--vermelho); stroke: var(--vermelho); }
+  .pp-plaquinha strong { color: var(--tinta); font-weight: 650; }
+  .pp-compra { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .6rem; margin-top: .2rem; }
+  .pp-compra .qtd { min-height: 54px; border-radius: 999px; }
+  .pp-compra .qtd button { border-radius: 999px; }
+  .pp-compra .btn { min-height: 54px; }
+  .pp-compra .btn-linha { grid-column: 1 / -1; }
+  .pp-compra .btn:disabled, .pp-barra .btn:disabled { background: var(--ceu); color: var(--tinta-2); box-shadow: inset 0 0 0 1px var(--linha); cursor: not-allowed; }
+  .pp-status { font-variant-numeric: tabular-nums; min-height: 1.5em; margin-top: -.4rem; font-size: .95rem; }
+  .pp-status:empty { display: none; }
+  .pp-info .junto { margin-top: 0; }
+  /* receber e pagar: o canteiro, com a faixa de terra por cima, como o cartao da Planta certa */
+  .pp-receber { position: relative; display: grid; gap: .85rem; margin-top: .4rem; padding: calc(1.35rem + 16px) 1.45rem 1.5rem; overflow: hidden; border-radius: 20px; background: var(--ceu); }
+  .pp-receber::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 16px; background: radial-gradient(circle, rgba(255, 255, 255, .22) 1.4px, transparent 1.8px) 0 0 / 11px 8px, var(--terra); }
+  .pp-receber h2 { font-size: 1.3rem; }
+  .pp-cep { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .5rem; }
+  .pp-cep input { width: 100%; min-width: 0; min-height: 50px; padding: .5rem 1.1rem; border: 0; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px var(--linha-forte); color: var(--tinta); font: 400 1rem/1.2 var(--fonte); }
+  .pp-cep .btn { min-height: 50px; }
+  .pp-cep-res { margin-top: -.2rem; padding: .75rem .9rem; border-radius: 12px; background: var(--branco); font-size: .95rem; }
+  .pp-cep-res:empty { display: none; }
+  .pp-modos { display: grid; gap: .7rem; margin: 0; padding: .3rem 0 0; list-style: none; color: var(--tinta-2); font-size: .95rem; line-height: 1.4; }
+  .pp-modos li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: .75rem; align-items: start; }
+  .pp-modos svg { width: 28px; height: 28px; fill: none; stroke: var(--azul); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .pp-modos strong { display: block; color: var(--tinta); font-weight: 600; }
+  .pp-zap { display: inline-flex; align-items: center; gap: .5rem; align-self: start; min-height: 44px; color: var(--tinta); font-weight: 600; text-underline-offset: 3px; }
+  .pp-zap svg { width: 22px; height: 22px; flex: none; color: #12803B; }
+  /* descricao, cuidados e detalhes em acordeao */
+  .pp-sobre { max-width: 54rem; margin-top: clamp(2.5rem, 5vw, 4rem); border-top: 1px solid var(--linha); }
+  .pp-sobre details { border-bottom: 1px solid var(--linha); }
+  .pp-sobre summary { display: flex; justify-content: space-between; align-items: center; gap: 1rem; min-height: 64px; cursor: pointer; list-style: none; font: 750 1.25rem/1.2 var(--fonte-titulo); letter-spacing: -.01em; }
+  .pp-sobre summary::-webkit-details-marker { display: none; }
+  .pp-sobre summary::after { content: ""; flex: none; width: 10px; height: 10px; margin-right: .3rem; border: solid var(--azul); border-width: 0 2.5px 2.5px 0; transform: translateY(-3px) rotate(45deg); transition: transform var(--dur-ui) var(--ease-out); }
+  .pp-sobre details[open] summary::after { transform: translateY(2px) rotate(225deg); }
+  .pp-sobre details > div { display: grid; gap: .7rem; padding-bottom: 1.5rem; color: var(--tinta-2); }
+  .pp-sobre details > div strong { color: var(--tinta); font-weight: 600; }
+  .pp-detalhes { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: .45rem 1.75rem; margin: 0; }
+  .pp-detalhes dt { color: var(--tinta); font-weight: 600; }
+  .pp-detalhes dd { margin: 0; overflow-wrap: anywhere; }
+  .pp-mais { padding-block: clamp(2.2rem, 5vw, 3.5rem) clamp(3.5rem, 7vw, 5.5rem); margin-top: clamp(3rem, 6vw, 5rem); }
+  .pp-mais .prateleira-topo h2 { margin-right: auto; font-size: clamp(1.5rem, 1.2rem + 1.1vw, 2.1rem); }
+  .pp-barra { display: none; }
+  @media (max-width: 860px) {
+    .pp-grade { grid-template-columns: minmax(0, 1fr); }
+    .pp-galeria { position: static; }
+    .pp-vistas button { width: 62px; height: 62px; border-radius: 31px 31px 10px 10px; }
+    .trilha li:last-child { display: none; } /* o nome ja vem logo abaixo da foto */
+    .pp-barra {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 25; display: flex; align-items: center; gap: .9rem;
+      padding: .7rem var(--margem) calc(.7rem + env(safe-area-inset-bottom)); background: var(--branco); border-top: 1px solid var(--linha);
+      box-shadow: 0 -12px 28px -20px rgba(18, 51, 29, .45); transform: translateY(105%); transition: transform .3s var(--ease-out);
+    }
+    .pp-barra.visivel { transform: none; }
+    .pp-barra strong { font-family: var(--fonte-titulo); font-size: 1.35rem; font-weight: 750; color: var(--azul); white-space: nowrap; }
+    .pp-barra .btn { flex: 1; min-width: 0; min-height: 50px; padding-inline: .8rem; }
+    .pp-mais { padding-bottom: 6rem; }
   }
-  @media (prefers-reduced-motion: reduce) { .ficha { transform: none; transition: opacity .2s ease; } }
+  @media (max-width: 420px) { .pp-cep { grid-template-columns: minmax(0, 1fr); } .pp-detalhes { grid-template-columns: minmax(0, 1fr); row-gap: .15rem; } .pp-detalhes dd + dt { margin-top: .5rem; } .pp-receber { padding-inline: 1.1rem; } }
+  @media (prefers-reduced-motion: reduce) { .pp-barra, .pp-foto img, .pp-sobre summary::after { transition: none; } }
   html:has(dialog[open]) { overflow: hidden; }
 
   /* ---------- carrinho: gaveta que entra pela direita ---------- */
@@ -576,12 +669,12 @@
   .flutuante {
     display: grid; place-items: center; position: fixed; z-index: 25;
     right: max(clamp(16px, 2vw, 28px), env(safe-area-inset-right)); bottom: calc(clamp(16px, 2vw, 28px) + env(safe-area-inset-bottom));
-    width: 62px; height: 62px; border-radius: 50%; background: #179A48; color: #fff;
-    box-shadow: 0 10px 28px -10px rgba(23, 154, 72, .7), 0 2px 6px rgba(15, 30, 74, .2);
+    width: 62px; height: 62px; border-radius: 50%; background: #12803B; color: #fff;
+    box-shadow: 0 10px 28px -10px rgba(18, 128, 59, .6), 0 2px 6px rgba(18, 51, 29, .2);
     opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity .25s var(--ease-out), transform .25s var(--ease-out), background-color .2s;
   }
   .flutuante.visivel { opacity: 1; transform: none; pointer-events: auto; }
-  .flutuante:hover { background: #12803B; }
+  .flutuante:hover { background: #0E6A31; }
   .flutuante svg { width: 30px; height: 30px; }
   @media (max-width: 600px) { .flutuante { width: 56px; height: 56px; } .flutuante svg { width: 27px; height: 27px; } }
   @media (prefers-reduced-motion: reduce) { .flutuante { transition: none; transform: none; } }
@@ -634,10 +727,9 @@
   .produto .produto-foto { position: static; }
   .produto .selo { left: .7rem; top: .7rem; z-index: 1; border-radius: 6px 6px 6px 2px; white-space: nowrap; }
   /* o cartao inteiro abre o produto: o link do nome se estende por cima de tudo; so o Adicionar fica acima dele */
-  .produto h4 a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+  .produto-nome a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
   .produto .btn { position: relative; z-index: 2; }
   .produto { cursor: pointer; }
-  .ficha-foto .selo { left: 1rem; top: 1rem; border-radius: 6px 6px 6px 2px; }
   @media (hover: hover) and (pointer: fine) { .produto:hover::after { box-shadow: inset 0 0 0 2px var(--azul-2); } }
   .produto-marca { color: var(--vermelho); }
   .produto-preco { font-family: var(--fonte-titulo); font-size: 1.35rem; font-weight: 700; color: var(--azul); line-height: 1.1; }
@@ -665,16 +757,13 @@
 
   /* combina com: na pagina do produto */
   .junto { display: grid; gap: .5rem; margin-top: .2rem; padding-top: 1rem; border-top: 1px solid var(--linha); }
-  .junto h3 { font: 650 1rem/1.3 var(--fonte); }
+  .junto h2 { font: 650 1rem/1.3 var(--fonte); letter-spacing: 0; }
   .junto ul { display: grid; gap: .5rem; margin: 0; padding: 0; list-style: none; }
   .junto li { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; gap: .1rem .7rem; align-items: center; }
   .junto img { grid-row: span 2; width: 52px; aspect-ratio: 1; object-fit: contain; border-radius: 10px; background: var(--ceu); mix-blend-mode: multiply; }
   .junto a { color: var(--tinta); font-size: .95rem; font-weight: 600; line-height: 1.3; text-decoration: none; }
   .junto small { grid-column: 2; color: var(--tinta-2); }
   .junto .mini { grid-column: 3; grid-row: 1 / span 2; min-height: 40px; padding: .35rem .8rem; font-size: .88rem; }
-  .ficha-foto { background: var(--ceu); }
-  .ficha-foto img { mix-blend-mode: multiply; padding: 6%; }
-  .ficha .cuidados { min-height: 0; font-size: .92rem; }
 
 </style>
 <script>document.documentElement.classList.add("com-js");</script>
@@ -708,6 +797,7 @@
   <symbol id="i-sacola" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" d="M3 4h2.2l2.3 11h10.2l2-8H6.3M9.5 19.5a1 1 0 1 0 0 .01M16.5 19.5a1 1 0 1 0 0 .01"/></symbol>
   <symbol id="i-facebook" viewBox="0 0 24 24"><path fill="currentColor" d="M13.5 21v-7.5H16l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.8 1.4-3.8 3.9v2.3H8v3h2.5V21h3Z"/></symbol>
   <symbol id="i-instagram" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/></g><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor"/></symbol>
+  <symbol id="i-estrela" viewBox="0 0 24 24"><path d="m12 2.8 2.8 5.8 6.3.9-4.6 4.4 1.1 6.3L12 17.2l-5.6 3 1.1-6.3L2.9 9.5l6.3-.9Z"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></symbol>
   <symbol id="i-zap" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3Z"/></symbol>
   <symbol id="i-caixa" viewBox="0 0 80 64"><path d="M40 34C40 20 30 10 18 10c0 12 10 22 22 24ZM40 34c0-12 9-21 21-21 0 11-9 20-21 21Z" fill="#7FB069"/><path d="M40 34V24" stroke="#17602F" stroke-width="3" stroke-linecap="round"/><path d="M20 34h40l-5 26H25Z" fill="#A4552E"/><rect x="17" y="31" width="46" height="7" rx="3" fill="#C26A3D"/></symbol>
@@ -721,7 +811,7 @@
 
 <header class="topo">
   <div class="envoltorio topo-grade">
-    <a class="marca" href="#" translate="no" aria-label="Pronta Flora Garden Brasil, início">
+    <a class="marca" href="#" translate="no">
       <img src="img/logo.webp" width="160" height="160" alt="">
       <span><strong>Pronta Flora</strong><small>Garden Brasil, Cravinhos</small></span>
     </a>
@@ -743,20 +833,18 @@
   <div class="envoltorio">
     <h1 class="so-leitor" id="titulo">Pronta Flora Garden Brasil: plantas, flores e jardinagem em Cravinhos</h1>
     <svg class="varal" id="varal" aria-hidden="true" preserveAspectRatio="xMidYMin slice"></svg>
-    <div class="destaques" id="destaques-caixa" aria-roledescription="carrossel" aria-label="Destaques da loja">
+    <div class="destaques" id="destaques-caixa" role="region" aria-roledescription="carrossel" aria-label="Destaques da loja">
       <ul class="destaques-trilho" id="destaques">
         <li class="destaque" style="--parede:#FBF1E8" aria-roledescription="destaque" aria-label="1 de 4">
           <div class="destaque-texto">
-            <p class="destaque-chapeu">A 7 minutos de Ribeirão Preto</p>
             <h2><span class="cursiva">Pronta Flora</span> o shopping das plantas, agora também pelo site</h2>
-            <p>Escolha pelo celular e retire na loja, ou receba em casa em Cravinhos e Ribeirão Preto.</p>
+            <p>Retire na loja ou receba em casa, em Cravinhos e Ribeirão Preto.</p>
             <a class="btn" href="#produtos">Ver as plantas</a>
           </div>
           <ul class="mesa" data-itens="anturio costela lirio-paz" aria-label="Produtos em destaque"></ul>
         </li>
         <li class="destaque" style="--parede:#F9ECEC" aria-roledescription="destaque" aria-label="2 de 4">
           <div class="destaque-texto">
-            <p class="destaque-chapeu">Flores de vaso</p>
             <h2><span class="cursiva">Orquídeas</span> para presentear</h2>
             <p>Branca, cascata e mini. Se for presente, embrulhamos com papel e laço.</p>
             <button class="btn" type="button" data-ir="flores">Ver as flores</button>
@@ -765,18 +853,16 @@
         </li>
         <li class="destaque" style="--parede:#F4EFE6" aria-roledescription="destaque" aria-label="3 de 4">
           <div class="destaque-texto">
-            <p class="destaque-chapeu">Vasos e cachepôs</p>
             <h2><span class="cursiva">Vasos</span> em cerâmica, cachepô e plástico</h2>
-            <p>Vasos esmaltados em cinco cores, cachepôs e vasos leves, com o kit de drenagem para plantar certo.</p>
+            <p>Esmaltados em cinco cores, cachepôs e vasos leves de plástico.</p>
             <button class="btn" type="button" data-ir="vasos">Ver os vasos</button>
           </div>
           <ul class="mesa mesa-vasos" data-itens="aquarela vaso-bretagne cachepo:1" aria-label="Produtos em destaque"></ul>
         </li>
         <li class="destaque" style="--parede:#EEF4EA" aria-roledescription="destaque" aria-label="4 de 4">
           <div class="destaque-texto">
-            <p class="destaque-chapeu">Planta certa</p>
             <h2><span class="cursiva">Seu canto</span> tem a planta certa</h2>
-            <p>Diga quanta luz chega no lugar e se tem cachorro ou gato em casa. Mostramos as opções.</p>
+            <p>Diga quanta luz chega no lugar e mostramos as plantas da loja.</p>
             <a class="btn" href="#planta">Achar a planta certa</a>
           </div>
           <ul class="mesa" data-itens="zamioculca espada jiboia" aria-label="Produtos em destaque"></ul>
@@ -804,7 +890,6 @@
       </div>
       <div class="categorias" id="categorias" role="group" aria-label="Filtrar por categoria" data-revela></div>
       <ul class="vitrine" id="vitrine" aria-label="Produtos"></ul>
-      <div class="procura" data-revela><h3>Árvores, frutíferas e grama</h3><p>Mudas grandes, árvores, frutíferas, grama e paisagismo são vendidos sob consulta. Fale com a nossa equipe pelo WhatsApp.</p><a class="btn btn-zap" id="procura" href="https://wa.me/5516981643796" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-zap"/></svg>Consultar pelo WhatsApp</a></div>
     </div>
   </section>
 
@@ -839,13 +924,33 @@
       <div class="loja-texto" data-revela style="--i:1">
         <h2 id="titulo-loja">O shopping das plantas</h2>
         <p>Estufas com flores de vaso, folhagens, árvores, frutíferas, vasos e tudo para o jardim, em Cravinhos, a 7 minutos de Ribeirão Preto. Abrimos todos os dias, inclusive aos domingos e feriados.</p>
-        <p class="nota-google"><strong>4,7</strong><span>no Google, com mais de 3,7 mil avaliações</span></p>
-        <div class="avaliacoes">
-          <blockquote class="avaliacao"><p>“Excelente local, muitas opções de flores e decorações de jardins.”</p><footer>Avaliação no Google</footer></blockquote>
-          <blockquote class="avaliacao"><p>“Grande variedade de plantas, preço razoável.”</p><footer>Avaliação no Google</footer></blockquote>
-          <blockquote class="avaliacao"><p>“Variedade de plantas, produtos para jardinagem, presente e decoração.”</p><footer>Avaliação no Google</footer></blockquote>
-        </div>
       </div>
+    </div>
+    <div class="envoltorio google" id="avaliacoes">
+      <div class="google-nota" data-revela>
+        <p class="google-marca"><svg class="g-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8a10 10 0 0 1-4.4 6.6v5.5h7.1c4.2-3.8 6.6-9.5 6.6-16.1z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7A22 22 0 0 0 24 46z"/><path fill="#FBBC05" d="M11.8 28.3a13.2 13.2 0 0 1 0-8.6v-5.7H4.5a22 22 0 0 0 0 20z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3A22 22 0 0 0 4.5 14l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/></svg>Avaliações no Google</p>
+        <p class="google-numero">4,7</p>
+        <span class="estrelas" role="img" aria-label="Nota 4,7 de 5"><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg></span>
+        <p class="google-texto">3.742 avaliações de clientes da loja</p>
+        <a class="btn btn-branco" href="https://www.google.com/maps?cid=3848077294583166022" target="_blank" rel="noopener">Ver todas no Google</a>
+      </div>
+      <ul class="depoimentos" data-revela style="--i:1">
+          <li>
+            <div class="dep-autor"><span class="dep-avatar" style="--av:#1A73E8" aria-hidden="true">D</span><p><strong>Diego B. Meli</strong><span>Local Guide · junho de 2026</span></p><svg class="g-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8a10 10 0 0 1-4.4 6.6v5.5h7.1c4.2-3.8 6.6-9.5 6.6-16.1z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7A22 22 0 0 0 24 46z"/><path fill="#FBBC05" d="M11.8 28.3a13.2 13.2 0 0 1 0-8.6v-5.7H4.5a22 22 0 0 0 0 20z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3A22 22 0 0 0 4.5 14l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/></svg></div>
+            <span class="estrelas" role="img" aria-label="5 de 5 estrelas"><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg></span>
+            <blockquote>“Excelente local para compras em jardinagem. Há inúmeras opções de plantas, adubos e afins. Espaço amplo e ainda tem lanchonete.”</blockquote>
+          </li>
+          <li>
+            <div class="dep-autor"><span class="dep-avatar" style="--av:#C5221F" aria-hidden="true">M</span><p><strong>Maria Aurea M. M.</strong><span>março de 2026</span></p><svg class="g-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8a10 10 0 0 1-4.4 6.6v5.5h7.1c4.2-3.8 6.6-9.5 6.6-16.1z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7A22 22 0 0 0 24 46z"/><path fill="#FBBC05" d="M11.8 28.3a13.2 13.2 0 0 1 0-8.6v-5.7H4.5a22 22 0 0 0 0 20z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3A22 22 0 0 0 4.5 14l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/></svg></div>
+            <span class="estrelas" role="img" aria-label="5 de 5 estrelas"><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg></span>
+            <blockquote>“Lugar para passar horas e comprar muito: mudas, vasos, diversidade de plantas, terra e tudo o que é preciso para cultivo de vasos ou hortas. Um sonho de lugar.”</blockquote>
+          </li>
+          <li>
+            <div class="dep-autor"><span class="dep-avatar" style="--av:#E37400" aria-hidden="true">L</span><p><strong>Larissa F.</strong><span>julho de 2025</span></p><svg class="g-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8a10 10 0 0 1-4.4 6.6v5.5h7.1c4.2-3.8 6.6-9.5 6.6-16.1z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7A22 22 0 0 0 24 46z"/><path fill="#FBBC05" d="M11.8 28.3a13.2 13.2 0 0 1 0-8.6v-5.7H4.5a22 22 0 0 0 0 20z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3A22 22 0 0 0 4.5 14l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/></svg></div>
+            <span class="estrelas" role="img" aria-label="5 de 5 estrelas"><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg><svg aria-hidden="true"><use href="#i-estrela"/></svg></span>
+            <blockquote>“Uma ampla variedade de plantas e mudas… isso sem contar o atendimento e atenção dos funcionários locais. Estão de parabéns!!”</blockquote>
+          </li>
+      </ul>
     </div>
   </section>
 
@@ -865,12 +970,13 @@
     </div>
   </section>
 </main>
+<main class="pp" id="pagina-produto" hidden></main>
 
 <footer class="rodape">
   <div class="envoltorio">
     <div class="rodape-grade">
       <div class="rodape-sobre">
-        <a class="rodape-marca" href="#" translate="no" aria-label="Pronta Flora Garden Brasil, voltar ao início">
+        <a class="rodape-marca" href="#" translate="no">
           <img src="img/logo.webp" width="160" height="160" alt="" loading="lazy">
           <span><span class="rodape-nome">Pronta Flora</span><small>Garden Brasil</small></span>
         </a>
@@ -929,7 +1035,6 @@
   <div class="sacola-pe" id="sacola-pe"></div>
 </dialog>
 
-<dialog class="ficha" id="ficha" aria-labelledby="ficha-nome"></dialog>
 
 <script>
 /* ============================================================
@@ -1059,17 +1164,17 @@ $("#categorias").innerHTML = [["todos", "Todos os produtos"], ...CATEGORIAS].map
 
 /* todos os cartoes tem o mesmo desenho; com escolha (cor, estampa, tamanho) o botao abre a pagina do produto */
 const precisaEscolher = (p) => p.vars.length > 1 || p.tams;
-const cartao = (p) => {
+const cartao = (p, nivel = 4) => {
   const va = p.vars[varInicial(p)];
   const botao = !p.vars.some(tem) ? `<button class="btn" type="button" disabled>Esgotado</button>`
     : precisaEscolher(p) ? `<button class="btn" type="button" data-abrir="${p.id}" aria-label="Adicionar: escolher ${p.vars.length > 1 ? `entre ${p.vars.length} ${PLURAL[p.rotulo]}` : "o tamanho"}"><svg aria-hidden="true"><use href="#i-sacola"/></svg>Adicionar</button>`
     : `<button class="btn" type="button" data-adicionar="${p.id}"><svg aria-hidden="true"><use href="#i-sacola"/></svg>Adicionar</button>`;
   return `
   <li class="produto produto-${p.cat}">
-    <a class="produto-foto" href="#produto-${p.id}" data-abrir="${p.id}" tabindex="-1" aria-hidden="true"><img src="${fotoP(va.f)}" width="600" height="600" alt="" loading="lazy">${p.selo ? `<span class="selo">${p.selo}</span>` : ""}</a>
+    <a class="produto-foto" href="?produto=${p.id}" data-abrir="${p.id}" tabindex="-1" aria-hidden="true"><img src="${fotoP(va.f)}" width="600" height="600" alt="" loading="lazy">${p.selo ? `<span class="selo">${p.selo}</span>` : ""}</a>
     <div class="produto-info">
       <p class="produto-marca">${esc(p.marca)}</p>
-      <h4><a href="#produto-${p.id}" data-abrir="${p.id}">${esc(p.nome)}</a></h4>
+      <h${nivel} class="produto-nome"><a href="?produto=${p.id}" data-abrir="${p.id}">${esc(p.nome)}</a></h${nivel}>
       ${sobre(p)}
       <p class="produto-preco">${precoCartao(p)}</p>
       ${botao}
@@ -1077,6 +1182,19 @@ const cartao = (p) => {
   </li>`;
 };
 
+/* as fileiras curtas terminam numa etiqueta: o kit para plantar no vaso novo e o que a estufa tem alem do site */
+const FIM = {
+  vasos: { classe: "fim-canteiro", titulo: "Para plantar no vaso novo", texto: "Drenagem no fundo, terra adubada, húmus e adubo para flores. Tudo em terra e adubo.",
+    fotos: ["drenagem-9ea5fc", "terra-adubada-734539", "humus-ab5ff2", "forth-flores-c20ded"], botao: `<button class="btn" type="button" data-ir="terra">Ver terra e adubo</button>` },
+  ferramentas: { classe: "fim-estufa", titulo: "Árvores, frutíferas e grama", texto: "Mudas grandes, árvores, frutíferas, grama e paisagismo são vendidos sob consulta.",
+    botao: `<a class="btn btn-zap" href="${zap("Olá! Vim pelo site e gostaria de um orçamento de árvores, frutíferas, grama ou paisagismo.")}" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-zap"/></svg>Consultar<span class="fim-extra"> pelo WhatsApp</span></a>` },
+};
+const fimFileira = (id, n) => {
+  const c = FIM[id]; if (!c) return "";
+  const foto = c.fotos ? `<div class="fim-fotos" aria-hidden="true">${c.fotos.map((f) => `<img src="${fotoP(f)}" width="120" height="120" alt="" loading="lazy">`).join("")}</div>`
+    : `<img class="fim-foto" src="img/jardim.webp" width="980" height="1400" alt="Jardim de exposição com banco de ferro, vasos grandes e folhagens" loading="lazy">`;
+  return `<li class="fim ${c.classe}"${n < 4 ? ` data-falta style="--falta:${5 - n}"` : ""}>${foto}<div class="fim-texto"><p class="fim-titulo">${c.titulo}</p><p>${c.texto}</p>${c.botao}</div></li>`;
+};
 $("#vitrine").innerHTML = CATEGORIAS.map(([id, nome]) => {
   const lista = PRODUTOS.filter((p) => p.cat === id);
   return `<li class="prateleira" data-cat="${id}">
@@ -1088,10 +1206,9 @@ $("#vitrine").innerHTML = CATEGORIAS.map(([id, nome]) => {
         <button class="seta" type="button" data-passo="1" aria-label="Mais em ${nome}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
       </div>
     </div>
-    <ul class="fileira" aria-labelledby="fileira-${id}">${lista.map(cartao).join("")}</ul>
+    <ul class="fileira" aria-labelledby="fileira-${id}">${lista.map(cartao).join("")}${fimFileira(id, lista.length)}</ul>
   </li>`;
 }).join("");
-$("#procura").href = zap("Olá! Vim pelo site e gostaria de um orçamento de árvores, frutíferas, grama ou paisagismo.");
 
 function filtrar(cat) {
   document.querySelectorAll("[data-cat][aria-pressed]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.cat === cat)));
@@ -1109,9 +1226,8 @@ function brotar() {
 }
 const rolar = (el, block = "start") => el.scrollIntoView({ behavior: reduzir.matches ? "auto" : "smooth", block });
 $("#categorias").addEventListener("click", (e) => { const b = e.target.closest("[data-cat]"); if (b) filtrar(b.dataset.cat); });
-document.querySelectorAll("[data-ir]").forEach((a) => a.addEventListener("click", () => { filtrar(a.dataset.ir); rolar($("#categorias")); }));
-/* botao do banner: abre o produto */
-document.querySelectorAll("[data-produto]").forEach((b) => b.addEventListener("click", () => abrirFicha(b.dataset.produto)));
+/* banners, rodape e trilha da pagina do produto filtram a vitrine (a trilha nasce depois, por isso o clique e no documento) */
+document.addEventListener("click", (e) => { const a = e.target.closest("[data-ir]"); if (a) { filtrar(a.dataset.ir); rolar($("#categorias")); } });
 $("#vitrine").addEventListener("click", (e) => {
   const ver = e.target.closest("[data-ver]");
   if (ver) { filtrar(ver.dataset.ver); rolar($("#categorias")); return; }
@@ -1134,113 +1250,249 @@ addEventListener("resize", setas);
 setas();
 
 /* ---------- pagina do produto ---------- */
-const ficha = $("#ficha");
-let fichaP = null, fichaK = 0, fichaT = 0, fichaFecha;
-function escolhaFicha(p) {
-  let html = "";
-  if (p.vars.length > 1) {
-    const opcoes = p.vars.map((va, i) => {
-      const fora = tem(va) ? "" : ", sem estoque";
-      return `<label class="opcao"><input type="radio" name="ficha-var" value="${i}"${i === fichaK ? " checked" : ""}><span>${esc(va.n)}${fora}</span></label>`;
-    }).join("");
-    html += `<fieldset class="variacao"><legend>${p.rotulo}: <strong id="ficha-var-nome">${esc(p.vars[fichaK].n)}</strong></legend><div class="opcoes">${opcoes}</div></fieldset>`;
-  }
-  if (p.tams) {
-    const opcoes = p.tams.map(([n], i) => `<label class="opcao"><input type="radio" name="ficha-tam" value="${i}"${i === fichaT ? " checked" : ""}><span>${n}</span></label>`).join("");
-    html += `<fieldset class="variacao"><legend>Tamanho: <strong id="ficha-tam-nome">${p.tams[fichaT][0]}</strong></legend><div class="opcoes">${opcoes}</div></fieldset>`;
-  }
-  return html;
-}
+const TITULO = document.title;
+const pp = $("#pagina-produto");
+let ppP = null, ppK = 0, ppT = 0, ppQtd = 1;
+/* ?produto=jiboia&folha=Variegata, ?produto=espada&tamanho=pote-24 */
+const chaveVar = (p) => (p.rotulo || "opcao").toLowerCase();
+const slugTam = (n) => n.toLowerCase().replace(/\s+/g, "-");
+const urlProduto = (p, k, t) => `?produto=${p.id}${p.vars.length > 1 ? `&${chaveVar(p)}=${encodeURIComponent(p.vars[k].n)}` : ""}${p.tams?.length > 1 ? `&tamanho=${slugTam(p.tams[t][0])}` : ""}`;
+const varDaUrl = (p, q) => { const k = p.vars.findIndex((va) => va.n === q.get(chaveVar(p))); return k >= 0 ? k : undefined; };
+const tamDaUrl = (p, q) => { const t = p.tams ? p.tams.findIndex(([n]) => slugTam(n) === q.get("tamanho")) : -1; return t >= 0 ? t : undefined; };
+const nomeCat = (id) => CATEGORIAS.find((c) => c[0] === id)[1];
+const maiusc = (t) => t[0].toUpperCase() + t.slice(1);
 /* "Combina com": vaso, terra ou adubo para levar junto */
-const junto = (p) => !p.junto ? "" : `<div class="junto"><h3>Combina com</h3><ul>${p.junto.map(porId).filter(Boolean).map((q) => `<li><img src="${fotoP(q.vars[varInicial(q)].f)}" width="52" height="52" alt="" loading="lazy"><a href="#produto-${q.id}" data-abrir="${q.id}">${esc(q.nome)}</a><small>${precoCartao(q)}</small>${precisaEscolher(q)
+const junto = (p) => !p.junto ? "" : `<div class="junto"><h2>Combina com</h2><ul>${p.junto.map(porId).filter(Boolean).map((q) => `<li><img src="${fotoP(q.vars[varInicial(q)].f)}" width="52" height="52" alt="" loading="lazy"><a href="?produto=${q.id}" data-abrir="${q.id}">${esc(q.nome)}</a><small>${precoCartao(q)}</small>${precisaEscolher(q)
   ? `<button class="btn btn-linha mini" type="button" data-abrir="${q.id}" aria-label="Escolher ${q.tams ? "o tamanho" : PLURAL[q.rotulo]} de ${esc(q.nome)}">Escolher</button>`
   : `<button class="btn mini" type="button" data-adicionar="${q.id}" aria-label="Adicionar ${esc(q.nome)} ao carrinho">Adicionar</button>`}</li>`).join("")}</ul></div>`;
-function desenharFicha() {
-  const p = fichaP, va = p.vars[fichaK];
-  ficha.innerHTML = `
-    <button class="fechar" type="button" data-fechar-ficha aria-label="Fechar"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
-    <div class="ficha-galeria"><div class="ficha-galeria-dentro">
-      <div class="ficha-foto"><img id="ficha-img" src="${fotoP(va.f)}" width="600" height="600" alt="">${p.selo ? `<span class="selo">${p.selo}</span>` : ""}</div>
-      <div class="miniaturas" id="miniaturas" role="group" aria-label="Fotos do produto"></div>
-      <p class="ficha-nota" id="ficha-nota"></p>
-    </div></div>
-    <div class="ficha-info">
-      <p class="produto-marca">${esc(p.marca)}</p>
-      <h2 id="ficha-nome">${esc(p.nome)}</h2>
-      <p class="ficha-preco" id="ficha-preco"></p>
-      ${sobre(p, true)}
-      ${escolhaFicha(p)}
-      <button class="btn ficha-add" type="button" id="ficha-add" data-adicionar="${p.id}"></button>
-      <p class="ficha-status" id="ficha-status" role="status"></p>
-      ${junto(p)}
-      <ul class="ficha-entrega">
-        <li>Retirada na loja: ${LOJA}</li>
-        <li>Entrega em Cravinhos e Ribeirão Preto</li>
-        <li>Pix ou cartão pelo site, ou dinheiro na retirada</li>
-      </ul>
-    </div>`;
-  mostrarVar();
-}
 /* fotos da galeria: a planta tambem aparece no vaso e no cachepo; o vaso aparece com uma planta */
 const COM_VASO = new Set(["orq-branca-97e88d", "orq-cascata-90214d", "orq-mini-26d7b5", "anturio-390aa2", "lirio-paz-31fe2d", "zamioculca-0d616c", "espada-0906f9", "jiboia-verde-52b88d", "costela-ccdacc"]);
 const COM_PLANTA = new Set(["vaso-marfim-92a10c", "vaso-branco-bcb7b3", "vaso-musgo-6ff6a5", "vaso-terracota-aa5af7", "vaso-cognac-93893f", "cachepo-amarelo-0f7ac3", "cachepo-preto-bd4705", "aquarela-rosa-8ecad3", "aquarela-amarelo-af1010", "aquarela-azul-8666a7", "aquarela-lilas-5575df", "aquarela-verde-1d6b7f"]);
 const fotosDe = (va) => COM_VASO.has(va.f) ? [[va.f, "Foto do produto", ""], [va.f + "-vaso", "No vaso de cerâmica Bretagne", "O vaso Bretagne é vendido à parte."], [va.f + "-cachepo", "No cachepô", "O cachepô é vendido à parte."]]
   : COM_PLANTA.has(va.f) ? [[va.f, "Foto do produto", ""], [va.f + "-planta", "Com uma planta", "A planta é vendida à parte."]] : [[va.f, "Foto do produto", ""]];
+/* plantas: o texto sai da luz, da rega e do pet do cadastro; o resto tem uma orientacao por categoria */
+const LUZ_TEXTO = { sol: "sol direto, em varanda ou janela com sol", meia: "claridade sem sol batendo, perto de uma janela", sombra: "pouca luz, como corredor, banheiro ou longe da janela" };
+const descPlanta = (p) => `${p.nome} vai bem com ${p.luz.map((l) => LUZ_TEXTO[l]).join(", ou com ")}. ${p.facil ? "Aguenta bem alguns dias sem cuidado." : "Pede atenção na rega e na umidade do ar."}`;
+const DICA = {
+  vasos: "Dentro de casa, use um prato embaixo do vaso com furo. No cachepô, que não tem furo, não deixe água parada no fundo.",
+  terra: "Guarde a embalagem fechada, em lugar seco e longe do sol. Para mexer com adubo, use luvas.",
+  ferramentas: "Depois de usar, lave, seque e guarde longe da chuva, para não enferrujar.",
+};
+const plaquinha = (p) => `<ul class="pp-plaquinha" aria-label="Cuidados">
+  <li><svg aria-hidden="true"><use href="#i-${p.luz[0]}"/></svg><strong>Luz</strong>${textoLuz(p)}</li>
+  <li><svg aria-hidden="true"><use href="#i-gota"/></svg><strong>Rega</strong>${esc(p.rega)}</li>
+  <li class="pet"><svg aria-hidden="true"><use href="#i-pata"/></svg><strong>Pets</strong>${p.pet ? "Não faz mal a cães e gatos" : "Deixe longe de cães e gatos"}</li>
+</ul>`;
+const comoCuidar = (p) => `<p><strong>Luz:</strong> ${p.luz.map((l) => LUZ_TEXTO[l]).join(", ou ")}.</p><p><strong>Rega:</strong> ${esc(p.rega)}. Antes de regar, toque a terra: se ainda estiver úmida, espere mais um dia.</p><p><strong>Pets:</strong> ${p.pet ? "não faz mal a cães e gatos, segundo a lista da ASPCA." : "pode fazer mal se cães ou gatos morderem as folhas. Deixe fora do alcance."}</p><p>Na dúvida, fale com a nossa equipe, que conhece cada planta da estufa.</p>`;
+
+function escolhaPagina(p) {
+  let html = "";
+  if (p.vars.length > 1) {
+    const opcoes = p.vars.map((va, i) => `<label class="opcao"><input type="radio" name="pp-var" value="${i}"${i === ppK ? " checked" : ""}${tem(va) ? "" : " disabled"}><span>${esc(va.n)}${tem(va) ? "" : ", sem estoque"}</span></label>`).join("");
+    html += `<fieldset class="variacao"><legend>${p.rotulo}: <strong id="pp-var-nome">${esc(p.vars[ppK].n)}</strong></legend><div class="opcoes">${opcoes}</div></fieldset>`;
+  }
+  if (p.tams) {
+    const opcoes = p.tams.map(([n], i) => `<label class="opcao"><input type="radio" name="pp-tam" value="${i}"${i === ppT ? " checked" : ""}><span>${n}</span></label>`).join("");
+    html += `<fieldset class="variacao"><legend>Tamanho: <strong id="pp-tam-nome">${p.tams[ppT][0]}</strong></legend><div class="opcoes">${opcoes}</div></fieldset>`;
+  }
+  return html;
+}
+
+function desenharProduto() {
+  const p = ppP, sem = p.vars.filter((va) => !tem(va)).length, planta = !!p.luz;
+  const mesma = PRODUTOS.filter((o) => o.cat === p.cat && o.id !== p.id);
+  const mais = [...mesma, ...(mesma.length < 5 ? PRODUTOS.filter((o) => o.cat !== p.cat && !p.junto?.includes(o.id)).slice(0, 5 - mesma.length) : [])];
+  const detalhes = [[planta ? "Nome científico" : "Marca", p.marca], ["Categoria", nomeCat(p.cat)],
+    p.vars.length > 1 && [maiusc(PLURAL[p.rotulo]), `${p.vars.length - sem} disponíveis${sem ? ` (${sem} sem estoque no momento)` : ""}`],
+    p.tams && ["Tamanhos", p.tams.map(([n]) => n).join(", ")],
+    planta && ["Luz", textoLuz(p)], planta && ["Pets", p.pet ? "Não faz mal a cães e gatos" : "Tóxica para cães e gatos"]].filter(Boolean);
+  const presente = p.cat === "flores" || p.cat === "folhagens";
+  pp.innerHTML = `
+  <div class="envoltorio">
+    <nav class="trilha" aria-label="Você está em"><ol>
+      <li><a href="#">Início</a></li>
+      <li><a href="#produtos" data-ir="${p.cat}">${nomeCat(p.cat)}</a></li>
+      <li><span aria-current="page">${esc(p.nome)}</span></li>
+    </ol></nav>
+    <div class="pp-grade">
+      <div class="pp-galeria">
+        <figure class="pp-foto" id="pp-foto"><img id="pp-img" src="${fotoP(p.vars[ppK].f)}" width="600" height="600" alt="">${p.selo ? `<span class="selo">${p.selo}</span>` : ""}</figure>
+        <div class="pp-vistas" id="pp-vistas" role="group" aria-label="Fotos do produto"></div>
+        <p class="pp-vista-nota" id="pp-vista-nota"></p>
+      </div>
+      <div class="pp-info">
+        <p class="${planta ? "pp-cientifico" : "produto-marca"}">${esc(p.marca)}</p>
+        <h1 id="pp-titulo" tabindex="-1">${esc(p.nome)}</h1>
+        <a class="pp-nota" href="#avaliacoes"><span class="estrelas" aria-hidden="true">${'<svg><use href="#i-estrela"/></svg>'.repeat(5)}</span><span>Loja com nota 4,7 no Google, em mais de 3,7 mil avaliações</span></a>
+        <div class="pp-preco"><strong id="pp-preco"></strong><span id="pp-parcela"></span></div>
+        ${planta ? plaquinha(p) : `<p class="pp-desc">${esc(p.desc)}</p>`}
+        ${escolhaPagina(p)}
+        <div class="pp-compra">
+          <div class="qtd" role="group" aria-label="Quantidade"><button type="button" data-pp-qtd="-1" aria-label="Diminuir quantidade">−</button><output id="pp-qtd" aria-live="polite">1</output><button type="button" data-pp-qtd="1" aria-label="Aumentar quantidade">+</button></div>
+          <button class="btn" type="button" id="pp-add" data-adicionar="${p.id}" data-pp></button>
+          <button class="btn btn-linha" type="button" id="pp-comprar">Comprar agora</button>
+        </div>
+        <p class="pp-status" id="pp-status" role="status"></p>
+        ${junto(p)}
+        <section class="pp-receber" aria-labelledby="pp-receber-titulo">
+          <h2 id="pp-receber-titulo">Receber e pagar</h2>
+          <form class="pp-cep" id="pp-cep"><label class="so-leitor" for="pp-cep-campo">CEP</label><input id="pp-cep-campo" inputmode="numeric" autocomplete="postal-code" maxlength="9" placeholder="Informe o seu CEP"><button class="btn" type="submit">Consultar</button></form>
+          <p class="pp-cep-res" id="pp-cep-res" role="status"></p>
+          <ul class="pp-modos">
+            <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 14 16 5l12 9M7 12v14h18V12M13 26v-7h6v7"/></svg><span><strong>Retirada na loja, sem custo</strong>${esc(LOJA)}</span></li>
+            <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 9h16v13H3zM19 13h5l4 5v4h-9"/><circle cx="8" cy="24" r="2.5"/><circle cx="23" cy="24" r="2.5"/></svg><span><strong>Entrega em Cravinhos e Ribeirão Preto</strong>A taxa é informada pelo WhatsApp</span></li>
+            <li><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="8" width="24" height="16" rx="3"/><path d="M4 13h24M9 19h5"/></svg><span><strong>Pix ou cartão em até 4x sem juros</strong>Dinheiro somente na retirada</span></li>
+            ${presente ? `<li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 14h22v13H5zM3 10h26v4H3zM16 10v17M16 10c-2-5-8-5-8-1.5S16 10 16 10c2-5 8-5 8-1.5S16 10 16 10"/></svg><span><strong>É para presente?</strong>Embrulhamos com papel e laço: marque no carrinho</span></li>` : ""}
+          </ul>
+          <a class="pp-zap" href="${zap(`Olá! Vim pelo site e tenho uma dúvida sobre ${p.nome}.`)}" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-zap"/></svg>Dúvidas sobre ${planta ? "esta planta" : "este produto"}? Fale conosco</a>
+        </section>
+      </div>
+    </div>
+    <div class="pp-sobre">
+      <details open><summary>Descrição</summary><div><p>${planta ? esc(descPlanta(p)) : esc(p.desc)}</p>${COM_VASO.has(p.vars[0].f) ? "<p>O vaso e o cachepô das fotos são vendidos à parte.</p>" : ""}<p>Produto vendido e entregue pela Pronta Flora, em Cravinhos.</p></div></details>
+      <details><summary>${planta ? "Como cuidar" : "Cuidados e dicas"}</summary><div>${planta ? comoCuidar(p) : `<p>${DICA[p.cat]}</p>`}</div></details>
+      <details><summary>Detalhes do produto</summary><div><dl class="pp-detalhes">${detalhes.map(([t, d]) => `<dt>${t}</dt><dd>${esc(d)}</dd>`).join("")}</dl></div></details>
+    </div>
+  </div>
+  ${mais.length ? `<section class="pp-mais secao-ceu" aria-labelledby="pp-mais-titulo">
+    <div class="envoltorio prateleira">
+      <div class="prateleira-topo">
+        <h2 id="pp-mais-titulo">${mais.some((o) => o.cat !== p.cat) ? "Você também pode gostar" : `Mais em ${nomeCat(p.cat).toLowerCase()}`}</h2>
+        <div class="prateleira-setas">
+          <button class="seta" type="button" data-passo="-1" aria-label="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button class="seta" type="button" data-passo="1" aria-label="Mais produtos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+      <ul class="fileira">${mais.map((o) => cartao(o, 3)).join("")}</ul>
+    </div>
+  </section>` : ""}
+  <div class="pp-barra" id="pp-barra" inert><strong id="pp-barra-preco"></strong><button class="btn" type="button" id="pp-barra-add" data-adicionar="${p.id}" data-pp></button></div>`;
+  $(".pp-mais .fileira", pp)?.addEventListener("scroll", setas, { passive: true });
+  mostrarOpcao();
+  barraCompra();
+  setas();
+}
+/* a barra de baixo so aparece no celular, depois que o botao principal passou para baixo do topo */
+function barraCompra() {
+  const barra = $("#pp-barra"); if (!barra || pp.hidden) return;
+  const ver = $("#pp-add").getBoundingClientRect().bottom < $(".topo").getBoundingClientRect().bottom;
+  if (barra.classList.contains("visivel") === ver) return;
+  barra.classList.toggle("visivel", ver); barra.inert = !ver;
+}
+addEventListener("scroll", barraCompra, { passive: true });
+
+/* as vistas da foto: o produto sozinho, no vaso, no cachepo ou com uma planta */
 function mostrarFoto(k) {
-  const fotos = fotosDe(fichaP.vars[fichaK]), [f, , nota] = fotos[k];
-  $("#ficha-img").src = fotoP(f);
-  $("#ficha-nota").textContent = nota;
-  document.querySelectorAll(".miniatura").forEach((b, i) => b.setAttribute("aria-pressed", String(i === k)));
+  const fotos = fotosDe(ppP.vars[ppK]), [f, , nota] = fotos[k];
+  $("#pp-img").src = fotoP(f);
+  $("#pp-vista-nota").textContent = nota;
+  pp.querySelectorAll("[data-pp-foto]").forEach((b, i) => b.setAttribute("aria-pressed", String(i === k)));
 }
 /* trocar a cor troca a foto; trocar o tamanho troca o preco */
-function mostrarVar() {
-  const p = fichaP, va = p.vars[fichaK], img = $("#ficha-img"), b = $("#ficha-add");
+function mostrarOpcao() {
+  const p = ppP, va = p.vars[ppK], img = $("#pp-img"), preco = precoDe(p, ppT), fotos = fotosDe(va);
   img.src = fotoP(va.f); img.alt = `${p.nome}${va.n ? `, ${p.rotulo.toLowerCase()} ${va.n}` : ""}`;
-  const fotos = fotosDe(va);
-  $("#miniaturas").innerHTML = fotos.length < 2 ? "" : fotos.map(([f, rotulo], i) => `<button class="miniatura" type="button" data-foto="${i}" aria-pressed="${i === 0}" aria-label="${rotulo}"><img src="${fotoP(f)}" width="600" height="600" alt="" loading="lazy"></button>`).join("");
-  $("#ficha-nota").textContent = "";
-  $("#ficha-preco").textContent = reais(precoDe(p, fichaT));
-  const nome = $("#ficha-var-nome"); if (nome) nome.textContent = va.n;
-  $("#ficha-status").textContent = "";
-  clearTimeout(b._t); b.classList.remove("adicionado");
-  b.disabled = !tem(va);
-  b.innerHTML = tem(va) ? `<svg aria-hidden="true"><use href="#i-sacola"/></svg>Adicionar ao carrinho` : "Sem estoque";
+  $("#pp-vistas").innerHTML = fotos.length < 2 ? "" : fotos.map(([f, rotulo], i) => `<button type="button" data-pp-foto="${i}" aria-pressed="${i === 0}" aria-label="${rotulo}"><img src="${fotoP(f)}" width="600" height="600" alt=""></button>`).join("");
+  $("#pp-vista-nota").textContent = "";
+  $("#pp-preco").textContent = reais(preco);
+  $("#pp-barra-preco").textContent = reais(preco);
+  $("#pp-parcela").textContent = preco >= 80 ? `à vista no Pix ou em até 4x de ${reais(preco / 4)} sem juros no cartão` : "à vista no Pix ou no cartão";
+  const nome = $("#pp-var-nome"); if (nome) nome.textContent = va.n;
+  const tam = $("#pp-tam-nome"); if (tam) tam.textContent = p.tams[ppT][0];
+  $("#pp-status").textContent = "";
+  ["#pp-add", "#pp-barra-add"].forEach((sel) => {
+    const b = $(sel); clearTimeout(b._t); b.classList.remove("adicionado");
+    b.disabled = !tem(va);
+    b.innerHTML = tem(va) ? `<svg aria-hidden="true"><use href="#i-sacola"/></svg>Adicionar ao carrinho` : "Sem estoque";
+  });
+  $("#pp-comprar").disabled = !tem(va);
 }
-ficha.addEventListener("change", (e) => {
-  if (e.target.name === "ficha-tam") { fichaT = +e.target.value; $("#ficha-tam-nome").textContent = fichaP.tams[fichaT][0]; mostrarVar(); piscar($("#ficha-preco")); return; }
-  if (e.target.name !== "ficha-var") return;
-  fichaK = +e.target.value;
-  mostrarVar();
-  piscar($("#ficha-img"));
-});
-function abrirFicha(id, k, empurrar = true, t) {
+
+function modoProduto(ligar) {
+  [".destaques-secao", "#conteudo"].forEach((sel) => { $(sel).hidden = ligar; });
+  pp.hidden = !ligar;
+}
+function abrirProduto(id, k, empurrar = true, t) {
   const p = porId(id); if (!p) return;
-  fichaP = p; fichaK = k ?? varInicial(p); fichaT = p.tams ? (t ?? tamInicial(p)) : 0;
-  desenharFicha();
-  if (empurrar) history.pushState({ ficha: id }, "", `#produto-${id}`);
-  clearTimeout(fichaFecha);
-  if (!ficha.open) { ficha.showModal(); requestAnimationFrame(() => requestAnimationFrame(() => ficha.classList.add("aberta"))); }
-  else ficha.classList.add("aberta");
-  ficha.scrollTop = 0;
+  ppP = p; ppK = k ?? varInicial(p); ppT = p.tams ? (t ?? tamInicial(p)) : 0; ppQtd = 1;
+  if (empurrar) {
+    /* guarda onde a pessoa estava na vitrine, para o voltar devolver ao mesmo ponto */
+    if (pp.hidden) history.replaceState({ ...history.state, rolagem: scrollY }, "");
+    history.pushState({ produto: id }, "", urlProduto(p, ppK, ppT));
+  }
+  desenharProduto();
+  modoProduto(true);
+  document.title = `${p.nome} | Pronta Flora`;
+  scrollTo({ top: 0, behavior: "instant" });
+  $("#pp-titulo").focus({ preventScroll: true });
 }
-/* fechar volta no historico, assim o botao voltar do celular tambem fecha */
-function fecharFicha(voltar = true) {
-  if (!ficha.open) return;
-  if (voltar && history.state?.ficha) { history.back(); return; }
-  if (voltar && location.hash.startsWith("#produto-")) history.replaceState(null, "", location.pathname + location.search);
-  ficha.classList.remove("aberta");
-  fichaFecha = setTimeout(() => ficha.close(), reduzir.matches ? 200 : 280);
+function voltarLoja(rolagem) {
+  if (pp.hidden) return;
+  modoProduto(false); ppP = null; pp.innerHTML = "";
+  document.title = TITULO;
+  setas(); mostrarFlutuante();
+  if (rolagem != null) scrollTo({ top: rolagem, behavior: "instant" });
 }
-ficha.addEventListener("cancel", (e) => { e.preventDefault(); fecharFicha(); });
-ficha.addEventListener("click", (e) => {
-  if (e.target === ficha || e.target.closest("[data-fechar-ficha]")) { fecharFicha(); return; }
-  if (e.target.closest("[data-ver-sacola]")) { fecharFicha(); abrirSacola(); return; }
-  const mini = e.target.closest("[data-foto]");
-  if (mini) { mostrarFoto(+mini.dataset.foto); piscar($("#ficha-img")); }
+addEventListener("popstate", (e) => {
+  const q = new URLSearchParams(location.search), p = porId(q.get("produto"));
+  if (p) { abrirProduto(p.id, varDaUrl(p, q), false, tamDaUrl(p, q)); return; }
+  voltarLoja(e.state?.rolagem ?? 0);
 });
-addEventListener("popstate", () => {
-  const m = location.hash.match(/^#produto-(.+)$/);
-  if (m && porId(m[1])) abrirFicha(m[1], undefined, false); else fecharFicha(false);
+/* links internos (#produtos, #loja, logo) dentro da pagina do produto voltam para a vitrine */
+document.addEventListener("click", (e) => {
+  const a = e.target.closest('a[href^="#"]');
+  if (!a || pp.hidden || a.closest("#sacola")) return;
+  e.preventDefault();
+  const alvo = a.getAttribute("href");
+  history.pushState(null, "", location.pathname + (alvo.length > 1 ? alvo : ""));
+  voltarLoja();
+  const el = alvo.length > 1 && document.querySelector(alvo);
+  if (el) el.scrollIntoView({ behavior: "instant" }); else scrollTo({ top: 0, behavior: "instant" });
+}, true);
+
+pp.addEventListener("change", (e) => {
+  if (e.target.name === "pp-tam") { ppT = +e.target.value; mostrarOpcao(); piscar($("#pp-preco")); }
+  else if (e.target.name === "pp-var") { ppK = +e.target.value; mostrarOpcao(); piscar($("#pp-img")); }
+  else return;
+  history.replaceState(history.state, "", urlProduto(ppP, ppK, ppT));
+});
+pp.addEventListener("click", (e) => {
+  const q = e.target.closest("[data-pp-qtd]");
+  if (q) { ppQtd = Math.min(20, Math.max(1, ppQtd + +q.dataset.ppQtd)); $("#pp-qtd").textContent = ppQtd; return; }
+  const vista = e.target.closest("[data-pp-foto]");
+  if (vista) { mostrarFoto(+vista.dataset.ppFoto); piscar($("#pp-img")); return; }
+  if (e.target.closest("#pp-comprar")) { adicionar(ppP.id, ppK, ppT, ppQtd); abrirSacola(); return; }
+  if (e.target.closest("[data-ver-sacola]")) { abrirSacola(); return; }
+  const seta = e.target.closest("[data-passo]");
+  if (seta) { const f = $(".fileira", seta.closest(".prateleira")); f.scrollBy({ left: seta.dataset.passo * f.clientWidth, behavior: reduzir.matches ? "auto" : "smooth" }); }
+});
+/* lupa da foto */
+pp.addEventListener("pointermove", (e) => {
+  const f = e.target.closest("#pp-foto"); if (!f || e.pointerType !== "mouse") return;
+  const r = f.getBoundingClientRect();
+  f.style.setProperty("--zx", `${((e.clientX - r.left) / r.width) * 100}%`);
+  f.style.setProperty("--zy", `${((e.clientY - r.top) / r.height) * 100}%`);
+  f.classList.add("zoom");
+});
+pp.addEventListener("pointerout", (e) => { const f = e.target.closest("#pp-foto"); if (f && !f.contains(e.relatedTarget)) f.classList.remove("zoom"); });
+/* consulta pelo CEP: a entrega e em Cravinhos e Ribeirao Preto */
+pp.addEventListener("input", (e) => { if (e.target.id === "pp-cep-campo") e.target.value = e.target.value.replace(/\D/g, "").replace(/^(\d{5})(\d)/, "$1-$2").slice(0, 9); });
+pp.addEventListener("submit", async (e) => {
+  if (e.target.id !== "pp-cep") return;
+  e.preventDefault();
+  const n = $("#pp-cep-campo").value.replace(/\D/g, ""), res = $("#pp-cep-res");
+  if (n.length !== 8) { res.textContent = "Informe os 8 números do CEP."; return; }
+  res.textContent = "Consultando…";
+  try {
+    const d = await (await fetch(`https://viacep.com.br/ws/${n}/json/`)).json();
+    if (d.erro) { res.textContent = "CEP não encontrado. Confira os números."; return; }
+    if (["cravinhos", "ribeirão preto"].includes(d.localidade.toLowerCase())) {
+      /* o carrinho ja abre com a entrega e o endereco preenchidos */
+      Object.assign(ck, { receber: "entrega", cep: `${n.slice(0, 5)}-${n.slice(5)}`, rua: d.logradouro || ck.rua, bairro: d.bairro || ck.bairro, cidade: `${d.localidade} (${d.uf})` }); ultimoCep = n;
+      res.innerHTML = `<strong>Entregamos no seu endereço${d.logradouro ? `, ${esc(d.logradouro)}` : ""}.</strong> A taxa é informada pela nossa equipe no WhatsApp. Se preferir, retire na loja sem custo.`;
+    } else res.innerHTML = `<strong>${esc(d.localidade)} (${esc(d.uf)}):</strong> a entrega é feita só em Cravinhos e Ribeirão Preto. Você pode comprar pelo site e retirar o pedido na loja.`;
+    piscar(res);
+  } catch { res.textContent = "Não foi possível consultar agora. Tente de novo em instantes."; }
 });
 
 /* ---------- carrinho ---------- */
@@ -1264,11 +1516,12 @@ function adicionar(id, k, t, qtd = 1) {
 }
 document.addEventListener("click", (e) => {
   const abrir = e.target.closest("[data-abrir]");
-  if (abrir) { e.preventDefault(); abrirFicha(abrir.dataset.abrir); return; }
+  /* ctrl/cmd + clique abre o produto em outra aba, como qualquer link */
+  if (abrir) { if (e.ctrlKey || e.metaKey || e.shiftKey || e.button) return; e.preventDefault(); abrirProduto(abrir.dataset.abrir, abrir.dataset.var ? +abrir.dataset.var : undefined); return; }
   const b = e.target.closest("[data-adicionar]"); if (!b || b.disabled) return;
-  const naFicha = !!b.closest("#ficha") && !b.closest(".junto"), p = porId(b.dataset.adicionar);
-  adicionar(p.id, naFicha ? fichaK : varInicial(p), naFicha ? fichaT : undefined);
-  if (naFicha) $("#ficha-status").innerHTML = `Adicionado ao carrinho. <button class="ver-sacola" type="button" data-ver-sacola>Ver o carrinho</button>`;
+  const naPagina = b.hasAttribute("data-pp"), p = porId(b.dataset.adicionar);
+  if (naPagina) adicionar(p.id, ppK, ppT, ppQtd); else adicionar(p.id, varInicial(p));
+  if (naPagina) $("#pp-status").innerHTML = `${ppQtd > 1 ? `${ppQtd} unidades adicionadas` : "Adicionado"} ao carrinho. <button class="ver-sacola" type="button" data-ver-sacola>Ver o carrinho</button>`;
   /* o botao confirma o que aconteceu e volta ao normal */
   const texto = b.innerHTML;
   b.classList.add("adicionado");
@@ -1575,7 +1828,7 @@ function sugestoes() {
   return PRODUTOS.filter((p) => p.luz && p.luz.includes(pc.luz) && (pc.pet === "nao" || p.pet) && (pc.tempo === "gosto" || p.facil) && p.vars.some(tem))
     .sort((a, b) => Number(b.facil) - Number(a.facil) || precoDe(a) - precoDe(b));
 }
-const linhaLista = (p) => `<li><img src="${fotoP(p.vars[varInicial(p)].f)}" width="64" height="64" alt="" loading="lazy"><a href="#produto-${p.id}" data-abrir="${p.id}">${esc(p.nome)}</a><small>${esc(p.rega)}${p.pet ? ", não faz mal a pets" : ""}</small><strong>${precoCartao(p)}</strong>${precisaEscolher(p)
+const linhaLista = (p) => `<li><img src="${fotoP(p.vars[varInicial(p)].f)}" width="64" height="64" alt="" loading="lazy"><a href="?produto=${p.id}" data-abrir="${p.id}">${esc(p.nome)}</a><small>${esc(p.rega)}${p.pet ? ", não faz mal a pets" : ""}</small><strong>${precoCartao(p)}</strong>${precisaEscolher(p)
   ? `<button class="btn btn-linha mini" type="button" data-abrir="${p.id}" aria-label="Escolher ${p.tams ? "o tamanho" : PLURAL[p.rotulo]} de ${esc(p.nome)}">Escolher</button>`
   : `<button class="btn mini" type="button" data-adicionar="${p.id}" aria-label="Adicionar ${esc(p.nome)} ao carrinho">Adicionar</button>`}</li>`;
 function desenharLista() {
@@ -1629,7 +1882,7 @@ desenharLista();
   trilho.querySelectorAll("[data-itens]").forEach((ul) => {
     ul.innerHTML = ul.dataset.itens.split(" ").map((item) => {
       const [id, k] = item.split(":"), p = porId(id), va = p.vars[k ? +k : varInicial(p)], preco = reais(precoDe(p));
-      return `<li><a class="peca" href="#produto-${p.id}" data-abrir="${p.id}" aria-label="${esc(p.nome)}, ${preco}"><img src="${fotoP(va.f + "-recorte")}?v=3" alt=""><span class="peca-preco" aria-hidden="true">${preco}</span></a></li>`;
+      return `<li><a class="peca" href="${urlProduto(p, k ? +k : varInicial(p), 0)}" data-abrir="${p.id}"${k ? ` data-var="${k}"` : ""} aria-label="${esc(p.nome)}, ${preco}"><img src="${fotoP(va.f + "-recorte")}?v=3" alt=""><span class="peca-preco" aria-hidden="true">${preco}</span></a></li>`;
     }).join("");
   });
   /* as tres pecas encolhem juntas so o necessario para sobrar um respiro entre as folhas (medido no desenho, nao na caixa) e a do meio continua a maior */
@@ -1719,8 +1972,15 @@ document.addEventListener("keydown", (e) => {
 matchMedia("(min-width: 60.01em)").addEventListener("change", (m) => { if (m.matches) menu(false); });
 
 mostrarFlutuante();
-const pedidoNoLink = location.hash.match(/^#produto-(.+)$/);
-if (pedidoNoLink && porId(pedidoNoLink[1])) abrirFicha(pedidoNoLink[1], undefined, false);
+/* endereco do produto: ?produto=id (os links antigos #produto-id continuam funcionando) */
+{
+  const q = new URLSearchParams(location.search), antigo = location.hash.match(/^#produto-(.+)$/);
+  const p = porId(q.get("produto") || antigo?.[1]);
+  if (p) {
+    if (antigo) history.replaceState(null, "", urlProduto(p, varInicial(p), p.tams ? tamInicial(p) : 0));
+    abrirProduto(p.id, varDaUrl(p, q), false, tamDaUrl(p, q));
+  }
+}
 </script>
 </body>
 </html>
