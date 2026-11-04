@@ -330,12 +330,12 @@
   .fim-estufa .fim-titulo { color: #fff; }
   .fim-foto { display: block; width: 100%; aspect-ratio: 4 / 3; height: auto; object-fit: cover; }
   @media (min-width: 1101px) {
-    .fileira .fim[data-falta] { grid-column: span var(--falta); grid-template-rows: none; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; }
-    .fileira .fim[data-falta] .fim-texto { justify-content: center; padding: 1.6rem 1.6rem 1.7rem; }
-    .fileira .fim[data-falta] .fim-titulo { font-size: 1.75rem; }
-    .fileira .fim[data-falta] .btn { align-self: start; margin-top: .5rem; }
-    .fileira .fim-canteiro[data-falta] .fim-fotos { order: 2; flex-wrap: wrap; align-content: center; padding: 1.4rem 1.6rem 1.4rem 0; }
-    .fileira .fim-canteiro[data-falta] .fim-fotos img { width: calc(50% - .25rem); max-width: 128px; }
+    .vitrine:not(.filtrada) .fim[data-falta] { grid-column: span var(--falta); grid-template-rows: none; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; }
+    .vitrine:not(.filtrada) .fim[data-falta] .fim-texto { justify-content: center; padding: 1.6rem 1.6rem 1.7rem; }
+    .vitrine:not(.filtrada) .fim[data-falta] .fim-titulo { font-size: 1.75rem; }
+    .vitrine:not(.filtrada) .fim[data-falta] .btn { align-self: start; margin-top: .5rem; }
+    .vitrine:not(.filtrada) .fim-canteiro[data-falta] .fim-fotos { order: 2; flex-wrap: wrap; align-content: center; padding: 1.4rem 1.6rem 1.4rem 0; }
+    .vitrine:not(.filtrada) .fim-canteiro[data-falta] .fim-fotos img { width: calc(50% - .25rem); max-width: 128px; }
     .vitrine:not(.filtrada) .fim[data-falta] .fim-extra { display: inline; }
   }
   .filtrada .fim { grid-column: auto !important; grid-template-columns: none !important; }
